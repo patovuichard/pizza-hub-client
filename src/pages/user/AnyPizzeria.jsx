@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { getPizzasByRestaurant } from "../../services/pizza.services";
 import { getUserDataById } from "../../services/user.services";
 
@@ -20,9 +20,8 @@ function AnyPizzeria() {
     try {
       const user = await getUserDataById(id);
       const pizzas = await getPizzasByRestaurant(id);
-      console.log(pizzas);
       setTimeout(() => {
-        setUserData(user);
+        setUserData(user.data);
         setPizzasInfo(pizzas);
         setIsFetching(false);
       }, 1000);
@@ -34,22 +33,26 @@ function AnyPizzeria() {
   return (
     <div>
       {isFetching ? (
-        <p>... loading</p>
+        <img src="../pizza.svg" className="App-logo" alt="pizza" />
       ) : (
         <div>
           <div>
-            <h1>{userData.data.username}</h1>
-            <h4>Address: {userData.data.address}, {userData.data.city}</h4>
+            <h1>{userData.username}</h1>
+            <h4>
+              Address: {userData.address}, {userData.city}
+            </h4>
           </div>
           <div>
             <h2>Pizzas</h2>
             {pizzasInfo.data.map((elem) => {
               return (
                 <div key={elem._id}>
-                  <img src={elem.imageUrl} alt="pizza" width={100}/>
-                  <h3>{elem.pizzaName}</h3>
+                  <Link to={`/pizza/${elem._id}`}>
+                    <img src={elem.imageUrl} alt="pizza" width={100} />
+                    <h3>{elem.pizzaName}</h3>
+                  </Link>
                 </div>
-                );
+              );
             })}
           </div>
         </div>

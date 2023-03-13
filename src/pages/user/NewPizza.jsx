@@ -1,19 +1,16 @@
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../context/auth.context";
-import { useNavigate } from "react-router-dom";
-import { uploadImageService } from "../../services/upload.services.js";
-import { getUserData, removeOneUser, updateOneUser } from "../../services/user.services.js";
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { createNewPizza } from "../../services/pizza.services"
+import { uploadImageService } from "../../services/upload.services"
 
-function EditUser() {
 
-  const navigate = useNavigate();
+function NewPizza() {
 
-  const { authenticateUSer } = useContext(AuthContext)
+  const navigate = useNavigate()
 
-  const [firstNameInput, setFirstNameInput] = useState("");
-  const [lastNameInput, setLastNameInput] = useState("");
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
+  const [pizzaName, setPizzaName] = useState("")
+  const [sauce, setSauce] = useState("")
+  const [ingredients, setIngredients] = useState([])
   const [imageUrl, setImageUrl] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
 
@@ -47,91 +44,103 @@ function EditUser() {
     }
   };
 
-  useEffect(() => {
-    getData()
-  }, [])
-
-  const getData = async () => {
-    try {
-      const response = await getUserData()
-      setFirstNameInput(response.data.firstNameInput)
-      setLastNameInput(response.data.lastNameInput)
-      setAddress(response.data.address)
-      setCity(response.data.city)
-    } catch (error) {
-      navigate("/error")
-    }
-  }
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const updateUser = {
-      firstName: firstNameInput,
-      lastName: lastNameInput,
+    const addNewPizza = {
+      pizzaName: pizzaName,
+      sauce: sauce,
       imageUrl: imageUrl,
-      address: address,
-      city: city,
+      ingredients: ingredients,
     };
     try {
-      await updateOneUser(updateUser);
+      await createNewPizza(addNewPizza);
       navigate("/user");
     } catch (error) {
       navigate("/error");
     }
   };
-  
-  const handleRemoveUser = async () => {
-    try {
-      await removeOneUser()
-      localStorage.removeItem("authToken")
-      authenticateUSer()
-      navigate("/")
-    } catch (error) {
-      navigate("/error")
-    }
-  }
 
   return (
     <div>
-      <h1>Edit Info</h1>
+      <h1>Create a pizza</h1>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="name">Name</label>
+        <label htmlFor="name">Pizza name: </label>
         <input
           type="text"
           name="name"
-          value={firstNameInput}
+          value={pizzaName}
           onChange={(event) => {
-            setFirstNameInput(event.target.value);
+            setPizzaName(event.target.value);
           }}
         />
         <br />
-        <label htmlFor="lastname">Lastame</label>
+        <label htmlFor="sauce">Sauce: </label>
         <input
-          type="text"
+          type="sauce"
           name="lastname"
-          value={lastNameInput}
+          value={sauce}
           onChange={(event) => {
-            setLastNameInput(event.target.value);
+            setSauce(event.target.value);
           }}
         />
         <br />
-        <label htmlFor="address">Address</label>
+        <label htmlFor="ingredients">Ingredient #1: </label>
+        <input
+          type="array"
+          name="ingredients"
+          value={ingredients}
+          onChange={(event) => {
+            setIngredients(event.target.value);
+          }}
+        />
+        <br />
+        <label htmlFor="ingredients">Ingredient #2: </label>
+        <input
+          type="array"
+          name="ingredients"
+          value={ingredients}
+          onChange={(event) => {
+            setIngredients(event.target.value);
+          }}
+        />
+        <br />
+        <label htmlFor="address">Ingredient #3: </label>
         <input
           type="text"
           name="address"
-          value={address}
+          value={ingredients}
           onChange={(event) => {
-            setAddress(event.target.value);
+            setIngredients(event.target.value);
           }}
         />
         <br />
-        <label htmlFor="city">City</label>
+        <label htmlFor="address">Ingredient #4: </label>
         <input
           type="text"
-          name="city"
-          value={city}
+          name="address"
+          value={ingredients}
           onChange={(event) => {
-            setCity(event.target.value);
+            setIngredients(event.target.value);
+          }}
+        />
+        <br />
+        <label htmlFor="address">Ingredient #5: </label>
+        <input
+          type="text"
+          name="address"
+          value={ingredients}
+          onChange={(event) => {
+            setIngredients(event.target.value);
+          }}
+        />
+        <br />
+        <label htmlFor="address">Ingredient #6: </label>
+        <input
+          type="text"
+          name="address"
+          value={ingredients}
+          onChange={(event) => {
+            setIngredients(event.target.value);
           }}
         />
         <br />
@@ -151,9 +160,8 @@ function EditUser() {
         <br />
         <button type="submit">Update</button>
       </form>
-      <button onClick={() => handleRemoveUser() }>Remove user</button>
     </div>
-  );
+  )
 }
 
-export default EditUser;
+export default NewPizza

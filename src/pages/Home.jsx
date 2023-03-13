@@ -89,14 +89,14 @@ function Home() {
       <div>
         <div>
           {isFetching ? (
-            <img src="./pizza.svg" className="App-logo" alt="pizza" />
+            <img src="./pizza.svg" className="App-logo" alt="pizza"/>
           ) : (
             <div>
               {allPizzeriasToDisplay.length > 0 ? (
                 allPizzeriasToDisplay.map((elem) => {
                   return (
                     <Link key={elem._id} to={`/user/${elem._id}`}>
-                      <img src={elem.imageUrl} alt="pizzeria" />
+                      <img src={elem.imageUrl} alt="pizzeria" width={100}/>
                       <p>{elem.username}</p>
                     </Link>
                   );

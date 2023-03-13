@@ -9,6 +9,9 @@ import NotFound from "./pages/NotFound";
 import User from "./pages/user/User";
 import EditUser from "./pages/user/EditUser";
 import AnyPizzeria from "./pages/user/AnyPizzeria";
+import NewPizza from "./pages/user/NewPizza";
+import EditPizza from "./pages/user/EditPizza";
+import Pizza from "./pages/user/Pizza";
 
 function App() {
   return (
@@ -23,6 +26,9 @@ function App() {
           <Route path="/user" element={<User />} />
           <Route path="/user/edit" element={<EditUser />} />
           <Route path="/user/:id" element={<AnyPizzeria />}/>
+          <Route path="/user/pizza-create" element={<NewPizza />} />
+          <Route path="/user/pizza-edit/:id" element={<EditPizza />}/>
+          <Route path="/pizza/:id" element={<Pizza />} />
 
           {/* error FE routes */}
           <Route path="/error" element={<Error />} />

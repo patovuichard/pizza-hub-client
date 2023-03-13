@@ -8,7 +8,27 @@ const getPizzasByRestaurant = (id) => {
   return service.get(`/pizza/owner/${id}`)
 }
 
+const createNewPizza = (newPizza) => {
+  return service.post(`/pizza`, newPizza)
+}
+
+const updateOnePizza = (id, pizzaInfo) => {
+  return service.patch(`/pizza/${id}`, pizzaInfo)
+}
+
+const deleteOnePizza = (id) => {
+  return service.delete(`/pizza/${id}`)
+}
+
+const getOnePizza = (id)=> {
+  return service.get(`/pizza/${id}`)
+}
+
 export {
   getAllPizzas,
-  getPizzasByRestaurant
+  getPizzasByRestaurant,
+  createNewPizza,
+  updateOnePizza,
+  deleteOnePizza,
+  getOnePizza
 }
