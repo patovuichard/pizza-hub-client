@@ -28,11 +28,11 @@ function User() {
 
   return (
     <>
-      <h1>User info</h1>
       {isFetching ? (
         <p>... loading</p>
       ) : (
         <div>
+          <h1>{userInfo.data.role} info</h1>
           <div>
             <img src={userInfo.data.imageUrl} alt="profile-img" />
           </div>

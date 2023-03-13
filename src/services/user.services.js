@@ -5,10 +5,15 @@ const getAllPizzerias = () => {
 }
 
 const getUserData = () => {
-  return service.get("/user/")
+  return service.get("/user")
+}
+
+const updateOneUser = (updateUser) => {
+  return service.patch("/user", updateUser)
 }
 
 export {
   getAllPizzerias,
-  getUserData
+  getUserData,
+  updateOneUser
 }
