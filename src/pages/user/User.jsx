@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { getUserData } from "../../services/user.services";
 
 function User() {
+  
   const navigate = useNavigate();
 
   const [userInfo, setUserInfo] = useState(null);

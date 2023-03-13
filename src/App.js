@@ -8,6 +8,7 @@ import Error from "./pages/Error";
 import NotFound from "./pages/NotFound";
 import User from "./pages/user/User";
 import EditUser from "./pages/user/EditUser";
+import AnyPizzeria from "./pages/user/AnyPizzeria";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/user" element={<User />} />
           <Route path="/user/edit" element={<EditUser />} />
+          <Route path="/user/:id" element={<AnyPizzeria />}/>
 
           {/* error FE routes */}
           <Route path="/error" element={<Error />} />

@@ -8,6 +8,10 @@ const getUserData = () => {
   return service.get("/user")
 }
 
+const getUserDataById = (id) => {
+  return service.get(`/user/${id}`)
+}
+
 const updateOneUser = (updateUser) => {
   return service.patch("/user", updateUser)
 }
@@ -19,6 +23,7 @@ const removeOneUser = () => {
 export {
   getAllPizzerias,
   getUserData,
+  getUserDataById,
   updateOneUser,
   removeOneUser
 }
