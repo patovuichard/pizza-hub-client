@@ -12,8 +12,13 @@ const updateOneUser = (updateUser) => {
   return service.patch("/user", updateUser)
 }
 
+const removeOneUser = () => {
+  return service.delete("/user")
+}
+
 export {
   getAllPizzerias,
   getUserData,
-  updateOneUser
+  updateOneUser,
+  removeOneUser
 }

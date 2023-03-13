@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../context/auth.context";
 import { useNavigate } from "react-router-dom";
 import { uploadImageService } from "../../services/upload.services.js";
-import { updateOneUser } from "../../services/user.services.js";
+import { removeOneUser, updateOneUser } from "../../services/user.services.js";
 
 function EditUser() {
+
   const navigate = useNavigate();
+
+  const { isLoggedIn, authenticateUSer } = useContext(AuthContext)
 
   const [firstNameInput, setFirstNameInput] = useState("");
   const [lastNameInput, setLastNameInput] = useState("");
@@ -44,19 +48,28 @@ function EditUser() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const updateUser = {
       firstName: firstNameInput,
       lastName: lastNameInput,
       imageUrl: imageUrl,
       address: address,
       city: city,
-    }
+    };
     try {
-      
-      const response = await updateOneUser(updateUser)
-      console.log(response)
-      navigate("/user")
+      await updateOneUser(updateUser);
+      navigate("/user");
+    } catch (error) {
+      navigate("/error");
+    }
+  };
+  
+  const handleRemoveUser = async (req, res, next) => {
+    try {
+      await removeOneUser()
+      localStorage.removeItem("authToken")
+      authenticateUSer()
+      navigate("/")
     } catch (error) {
       navigate("/error")
     }
@@ -122,6 +135,7 @@ function EditUser() {
         <br />
         <button type="submit">Update</button>
       </form>
+      <button onClick={() => handleRemoveUser() }>Remove user</button>
     </div>
   );
 }
