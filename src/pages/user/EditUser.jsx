@@ -2,13 +2,19 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/auth.context";
 import { useNavigate } from "react-router-dom";
 import { uploadImageService } from "../../services/upload.services.js";
-import { getUserData, removeOneUser, updateOneUser } from "../../services/user.services.js";
+import {
+  getUserData,
+  removeOneUser,
+  updateOneUser,
+} from "../../services/user.services.js";
+
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet"; // for Leaflet Component imports
+import ClickMarker from "../../components/ClickMarker";
 
 function EditUser() {
-
   const navigate = useNavigate();
 
-  const { authenticateUSer } = useContext(AuthContext)
+  const { authenticateUSer } = useContext(AuthContext);
 
   const [firstNameInput, setFirstNameInput] = useState("");
   const [lastNameInput, setLastNameInput] = useState("");
@@ -16,6 +22,9 @@ function EditUser() {
   const [city, setCity] = useState("");
   const [imageUrl, setImageUrl] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
+
+  const [clickedPosition, setClickedPosition] = useState(null);
+  const [center, setCenter] = useState([38.908, 1.437]); // state used to define the center of the map on first render. [51.505, -0.09] is just an example.
 
   const handleFileUpload = async (event) => {
     // console.log("The file to be uploaded is: ", e.target.files[0]);
@@ -48,20 +57,20 @@ function EditUser() {
   };
 
   useEffect(() => {
-    getData()
-  }, [])
+    getData();
+  }, []);
 
   const getData = async () => {
     try {
-      const response = await getUserData()
-      setFirstNameInput(response.data.firstNameInput)
-      setLastNameInput(response.data.lastNameInput)
-      setAddress(response.data.address)
-      setCity(response.data.city)
+      const response = await getUserData();
+      setFirstNameInput(response.data.firstNameInput);
+      setLastNameInput(response.data.lastNameInput);
+      setAddress(response.data.address);
+      setCity(response.data.city);
     } catch (error) {
-      navigate("/error")
+      navigate("/error");
     }
-  }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -71,6 +80,7 @@ function EditUser() {
       imageUrl: imageUrl,
       address: address,
       city: city,
+      coordinates: clickedPosition, 
     };
     try {
       await updateOneUser(updateUser);
@@ -79,17 +89,17 @@ function EditUser() {
       navigate("/error");
     }
   };
-  
+
   const handleRemoveUser = async () => {
     try {
-      await removeOneUser()
-      localStorage.removeItem("authToken")
-      authenticateUSer()
-      navigate("/")
+      await removeOneUser();
+      localStorage.removeItem("authToken");
+      authenticateUSer();
+      navigate("/");
     } catch (error) {
-      navigate("/error")
+      navigate("/error");
     }
-  }
+  };
 
   return (
     <div>
@@ -151,7 +161,18 @@ function EditUser() {
         <br />
         <button type="submit">Update</button>
       </form>
-      <button onClick={() => handleRemoveUser() }>Remove user</button>
+      <button onClick={() => handleRemoveUser()}>Remove user</button>
+
+      <MapContainer center={center} zoom={13} scrollWheelZoom={false}>
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        {/* invoke Marker Componentes here */}
+        <ClickMarker setClickedPosition={setClickedPosition} />
+        { clickedPosition !== null && <Marker position={clickedPosition} /> }
+      </MapContainer>
+      
     </div>
   );
 }

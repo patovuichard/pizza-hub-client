@@ -4,6 +4,8 @@ import Search from "../components/Search";
 import { getAllPizzas } from "../services/pizza.services";
 import { getAllPizzerias } from "../services/user.services";
 
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet"; // for Leaflet Component imports
+
 function Home() {
   const navigate = useNavigate();
 
@@ -13,6 +15,8 @@ function Home() {
   const [allPizzasToDisplay, setAllPizzasToDisplay] = useState(allPizzas);
   const [isFetching, setIsFetching] = useState(true);
   const [isFetching2, setIsFetching2] = useState(true);
+
+  const [center, setCenter] = useState([38.908, 1.437]); // state used to define the center of the map on first render. [51.505, -0.09] is just an example.
 
   useEffect(() => {
     getPizzerias();
@@ -87,26 +91,44 @@ function Home() {
         <h1>Pizzerias</h1>
       </div>
       <div>
-        <div>
-          {isFetching ? (
-            <img src="./pizza.svg" className="App-logo" alt="pizza"/>
-          ) : (
+        {isFetching ? (
+          <img src="./pizza.svg" className="App-logo" alt="pizza" />
+        ) : (
+          <div>
+            {allPizzeriasToDisplay.length > 0 ? (
+              allPizzeriasToDisplay.map((elem) => {
+                return (
+                  <Link key={elem._id} to={`/user/${elem._id}`}>
+                    <img src={elem.imageUrl} alt="pizzeria" width={100} />
+                    <p>{elem.username}</p>
+                  </Link>
+                );
+              })
+            ) : (
+              <p>No Pizzerias with that name</p>
+            )}
+            {/* AGregar condicional para mostrar el mapa o no */}
             <div>
-              {allPizzeriasToDisplay.length > 0 ? (
-                allPizzeriasToDisplay.map((elem) => {
+              <MapContainer center={center} zoom={13} scrollWheelZoom={false}>
+                <TileLayer
+                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                {allPizzerias.map((eachElement) => {
                   return (
-                    <Link key={elem._id} to={`/user/${elem._id}`}>
-                      <img src={elem.imageUrl} alt="pizzeria" width={100}/>
-                      <p>{elem.username}</p>
-                    </Link>
+                    <Marker position={eachElement.coordinates} key={eachElement._id}>
+                      <Popup>
+                        <p>
+                          Pizzeria: <b>{eachElement.username}</b>
+                        </p>
+                      </Popup>
+                    </Marker>
                   );
-                })
-              ) : (
-                <p>No Pizzerias with that name</p>
-              )}
+                })}
+              </MapContainer>
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
       <div>
         <div>

@@ -32,6 +32,11 @@ a {
   text-decoration: none;
 }
 
+.leaflet-container {
+  height: 400px; /* example */
+  width: 400px; /* example */
+}
+
 /* .App-header {
   background-color: #282c34;
   min-height: 100vh;
