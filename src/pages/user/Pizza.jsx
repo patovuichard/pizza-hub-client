@@ -37,7 +37,8 @@ function Pizza() {
             <img src={singlePizza.imageUrl} alt="pizza" width={100}/>
           </div>
           <div>
-            <h3>{singlePizza.pizzaName}</h3>
+            <h2>{singlePizza.pizzaName}</h2>
+            <h4>Sauce: {singlePizza.sauce}</h4>
             <h4>Ingredients:</h4>
               {singlePizza.ingredients.map((elem) => {
                 return <p key={elem._id}>{elem}</p>;

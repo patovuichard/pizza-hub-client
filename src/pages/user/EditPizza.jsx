@@ -11,7 +11,12 @@ function EditPizza() {
 
   const [pizzaName, setPizzaName] = useState("")
   const [sauce, setSauce] = useState("")
-  const [ingredients, setIngredients] = useState([])
+  const [ingredient1, setIngredient1] = useState("");
+  const [ingredient2, setIngredient2] = useState("");
+  const [ingredient3, setIngredient3] = useState("");
+  const [ingredient4, setIngredient4] = useState("");
+  const [ingredient5, setIngredient5] = useState("");
+  const [ingredient6, setIngredient6] = useState("");
   const [imageUrl, setImageUrl] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
 
@@ -54,7 +59,12 @@ function EditPizza() {
       const response = await getOnePizza(id)
       setPizzaName(response.data.pizzaName)
       setSauce(response.data.sauce)
-      setIngredients(response.data.ingredients)
+      setIngredient1(response.data.ingredients[0])
+      setIngredient2(response.data.ingredients[1])
+      setIngredient3(response.data.ingredients[2])
+      setIngredient4(response.data.ingredients[3])
+      setIngredient5(response.data.ingredients[4])
+      setIngredient6(response.data.ingredients[5])
     } catch (error) {
       navigate("/error")
     }
@@ -66,7 +76,7 @@ function EditPizza() {
       pizzaName: pizzaName,
       sauce: sauce,
       imageUrl: imageUrl,
-      ingredients: ingredients,
+      ingredients: [ingredient1, ingredient2, ingredient3, ingredient4,ingredient5, ingredient6],
     };
     try {
       await updateOnePizza(id, updatePizza);
@@ -100,22 +110,24 @@ function EditPizza() {
         />
         <br />
         <label htmlFor="sauce">Sauce: </label>
-        <input
-          type="sauce"
-          name="lastname"
-          value={sauce}
+        <select
+          name="sauce"
           onChange={(event) => {
             setSauce(event.target.value);
           }}
-        />
+        >
+          <option value="none">none</option>
+          <option value="red">red</option>
+          <option value="white">white</option>
+        </select>
         <br />
         <label htmlFor="ingredients">Ingredient #1: </label>
         <input
           type="array"
           name="ingredients"
-          value={ingredients}
+          value={ingredient1}
           onChange={(event) => {
-            setIngredients(event.target.value);
+            setIngredient1(event.target.value);
           }}
         />
         <br />
@@ -123,9 +135,9 @@ function EditPizza() {
         <input
           type="array"
           name="ingredients"
-          value={ingredients}
+          value={ingredient2}
           onChange={(event) => {
-            setIngredients(event.target.value);
+            setIngredient2(event.target.value);
           }}
         />
         <br />
@@ -133,9 +145,9 @@ function EditPizza() {
         <input
           type="text"
           name="address"
-          value={ingredients}
+          value={ingredient3}
           onChange={(event) => {
-            setIngredients(event.target.value);
+            setIngredient3(event.target.value);
           }}
         />
         <br />
@@ -143,9 +155,9 @@ function EditPizza() {
         <input
           type="text"
           name="address"
-          value={ingredients}
+          value={ingredient4}
           onChange={(event) => {
-            setIngredients(event.target.value);
+            setIngredient4(event.target.value);
           }}
         />
         <br />
@@ -153,9 +165,9 @@ function EditPizza() {
         <input
           type="text"
           name="address"
-          value={ingredients}
+          value={ingredient5}
           onChange={(event) => {
-            setIngredients(event.target.value);
+            setIngredient5(event.target.value);
           }}
         />
         <br />
@@ -163,9 +175,9 @@ function EditPizza() {
         <input
           type="text"
           name="address"
-          value={ingredients}
+          value={ingredient6}
           onChange={(event) => {
-            setIngredients(event.target.value);
+            setIngredient6(event.target.value);
           }}
         />
         <br />
