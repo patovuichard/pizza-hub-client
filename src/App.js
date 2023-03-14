@@ -12,6 +12,7 @@ import AnyPizzeria from "./pages/user/AnyPizzeria";
 import NewPizza from "./pages/user/NewPizza";
 import EditPizza from "./pages/user/EditPizza";
 import Pizza from "./pages/user/Pizza";
+import PaymentSuccess from "./components/PaymentSuccess";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="/user/pizza-create" element={<NewPizza />} />
           <Route path="/user/pizza-edit/:id" element={<EditPizza />}/>
           <Route path="/pizza/:id" element={<Pizza />} />
+          <Route path="/payment-success" element={ <PaymentSuccess/> }/>
 
           {/* error FE routes */}
           <Route path="/error" element={<Error />} />
