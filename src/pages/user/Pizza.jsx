@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import PaymentIntent from "../../components/PaymentIntent";
 import { getOnePizza } from "../../services/pizza.services";
 
 function Pizza() {
@@ -8,6 +9,7 @@ function Pizza() {
 
   const [singlePizza, setSinglePizza] = useState(null);
   const [isFetching, setIsFetching] = useState(true);
+  const [showPaymentIntent, setShowPaymentIntent] = useState(false)
 
   useEffect(() => {
     getPizzaInfo();
@@ -39,12 +41,20 @@ function Pizza() {
           <div>
             <h2>{singlePizza.pizzaName}</h2>
             <h4>Sauce: {singlePizza.sauce}</h4>
+            <h4>Price: €{singlePizza.price}</h4>
             <h4>Ingredients:</h4>
               {singlePizza.ingredients.map((elem) => {
                 return <p key={elem._id}>{elem}</p>;
               })}
           </div>
-          <button>Buy</button>
+          {/* <button>Buy</button> */}
+          <div>
+            { 
+              showPaymentIntent === false
+              ? <button onClick={() => setShowPaymentIntent(true)}>Buy</button> 
+              : <PaymentIntent productDetails={ singlePizza }/> 
+            }
+          </div>
         </>
       )}
     </>

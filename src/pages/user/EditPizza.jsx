@@ -17,6 +17,7 @@ function EditPizza() {
   const [ingredient4, setIngredient4] = useState("");
   const [ingredient5, setIngredient5] = useState("");
   const [ingredient6, setIngredient6] = useState("");
+  const [price, setPrice] = useState(0);
   const [imageUrl, setImageUrl] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
 
@@ -65,6 +66,7 @@ function EditPizza() {
       setIngredient4(response.data.ingredients[3])
       setIngredient5(response.data.ingredients[4])
       setIngredient6(response.data.ingredients[5])
+      setPrice(response.data.price)
     } catch (error) {
       navigate("/error")
     }
@@ -77,6 +79,7 @@ function EditPizza() {
       sauce: sauce,
       imageUrl: imageUrl,
       ingredients: [ingredient1, ingredient2, ingredient3, ingredient4,ingredient5, ingredient6],
+      price: price,
     };
     try {
       await updateOnePizza(id, updatePizza);
@@ -116,68 +119,79 @@ function EditPizza() {
             setSauce(event.target.value);
           }}
         >
+          <option value=""></option>
           <option value="none">none</option>
           <option value="red">red</option>
           <option value="white">white</option>
         </select>
         <br />
-        <label htmlFor="ingredients">Ingredient #1: </label>
+        <label htmlFor="ingredient1">Ingredient #1: </label>
         <input
           type="array"
-          name="ingredients"
+          name="ingredient1"
           value={ingredient1}
           onChange={(event) => {
             setIngredient1(event.target.value);
           }}
         />
         <br />
-        <label htmlFor="ingredients">Ingredient #2: </label>
+        <label htmlFor="ingredient2">Ingredient #2: </label>
         <input
           type="array"
-          name="ingredients"
+          name="ingredient2"
           value={ingredient2}
           onChange={(event) => {
             setIngredient2(event.target.value);
           }}
         />
         <br />
-        <label htmlFor="address">Ingredient #3: </label>
+        <label htmlFor="ingredient3">Ingredient #3: </label>
         <input
           type="text"
-          name="address"
+          name="ingredient3"
           value={ingredient3}
           onChange={(event) => {
             setIngredient3(event.target.value);
           }}
         />
         <br />
-        <label htmlFor="address">Ingredient #4: </label>
+        <label htmlFor="ingredient4">Ingredient #4: </label>
         <input
           type="text"
-          name="address"
+          name="ingredient4"
           value={ingredient4}
           onChange={(event) => {
             setIngredient4(event.target.value);
           }}
         />
         <br />
-        <label htmlFor="address">Ingredient #5: </label>
+        <label htmlFor="ingredient5">Ingredient #5: </label>
         <input
           type="text"
-          name="address"
+          name="ingredient5"
           value={ingredient5}
           onChange={(event) => {
             setIngredient5(event.target.value);
           }}
         />
         <br />
-        <label htmlFor="address">Ingredient #6: </label>
+        <label htmlFor="ingredient6">Ingredient #6: </label>
         <input
           type="text"
-          name="address"
+          name="ingredient6"
           value={ingredient6}
           onChange={(event) => {
             setIngredient6(event.target.value);
+          }}
+        />
+        <br />
+        <label htmlFor="price">Price </label>
+        <input
+          type="number"
+          name="price"
+          value={price}
+          onChange={(event) => {
+            setPrice(event.target.value);
           }}
         />
         <br />

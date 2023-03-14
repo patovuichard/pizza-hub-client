@@ -14,6 +14,7 @@ function NewPizza() {
   const [ingredient4, setIngredient4] = useState("");
   const [ingredient5, setIngredient5] = useState("");
   const [ingredient6, setIngredient6] = useState("");
+  const [price, setPrice] = useState(0);
   const [imageUrl, setImageUrl] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
 
@@ -54,6 +55,7 @@ function NewPizza() {
       sauce: sauce,
       imageUrl: imageUrl,
       ingredients: [ingredient1, ingredient2, ingredient3, ingredient4,ingredient5, ingredient6],
+      price: price,
     };
     try {
       await createNewPizza(addNewPizza);
@@ -84,6 +86,7 @@ function NewPizza() {
             setSauce(event.target.value);
           }}
         >
+          <option value=""></option>
           <option value="none">none</option>
           <option value="red">red</option>
           <option value="white">white</option>
@@ -146,6 +149,16 @@ function NewPizza() {
           value={ingredient6}
           onChange={(event) => {
             setIngredient6(event.target.value);
+          }}
+        />
+        <br />
+        <label htmlFor="price">Price </label>
+        <input
+          type="number"
+          name="price"
+          value={price}
+          onChange={(event) => {
+            setPrice(event.target.value);
           }}
         />
         <br />
