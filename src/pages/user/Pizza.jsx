@@ -2,10 +2,14 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import PaymentIntent from "../../components/PaymentIntent";
 import { getOnePizza } from "../../services/pizza.services";
+import { useContext } from "react";
+import { AuthContext } from "../../context/auth.context";
 
 function Pizza() {
   const navigate = useNavigate();
   const { id } = useParams();
+
+  const { isLoggedIn } = useContext(AuthContext)
 
   const [singlePizza, setSinglePizza] = useState(null);
   const [isFetching, setIsFetching] = useState(true);
@@ -47,14 +51,16 @@ function Pizza() {
                 return <p key={elem._id}>{elem}</p>;
               })}
           </div>
-          {/* <button>Buy</button> */}
-          <div>
-            { 
-              showPaymentIntent === false
-              ? <button onClick={() => setShowPaymentIntent(true)}>Buy</button> 
-              : <PaymentIntent productDetails={ singlePizza }/> 
-            }
-          </div>
+          {isLoggedIn ?
+            <div>
+              { 
+                showPaymentIntent === false
+                ? <button onClick={() => setShowPaymentIntent(true)}>Buy</button> 
+                : <PaymentIntent productDetails={ singlePizza }/> 
+              }
+            </div> :
+            null
+          }
         </>
       )}
     </>
