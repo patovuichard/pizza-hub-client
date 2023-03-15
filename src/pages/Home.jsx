@@ -10,11 +10,13 @@ function Home() {
   const navigate = useNavigate();
 
   const [allPizzerias, setAllPizzerias] = useState(null);
-  const [allPizzeriasToDisplay, setAllPizzeriasToDisplay] = useState(allPizzerias);
+  const [allPizzeriasToDisplay, setAllPizzeriasToDisplay] =
+    useState(allPizzerias);
   const [allPizzas, setAllPizzas] = useState(null);
   const [allPizzasToDisplay, setAllPizzasToDisplay] = useState(allPizzas);
   const [isFetching, setIsFetching] = useState(true);
   const [isFetching2, setIsFetching2] = useState(true);
+  const [showMap, setShowMap] = useState(false);
 
   const [center, setCenter] = useState([38.908, 1.437]); // state used to define the center of the map on first render. [51.505, -0.09] is just an example.
 
@@ -27,7 +29,6 @@ function Home() {
     setIsFetching(true);
     try {
       const response = await getAllPizzerias();
-      // console.log(response);
       setTimeout(() => {
         setAllPizzerias(response.data);
         setAllPizzeriasToDisplay(response.data);
@@ -42,7 +43,6 @@ function Home() {
     setIsFetching2(true);
     try {
       const response = await getAllPizzas();
-      // console.log(response);
       setTimeout(() => {
         setAllPizzas(response.data);
         setAllPizzasToDisplay(response.data);
@@ -105,28 +105,47 @@ function Home() {
                 );
               })
             ) : (
-              <p>No Pizzerias with that name</p>
+              <p>Sorry, no Pizzerias with that name</p>
             )}
-            {/* AGregar condicional para mostrar el mapa o no */}
-            <div>
-              <MapContainer center={center} zoom={13} scrollWheelZoom={false}>
-                <TileLayer
-                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-                {allPizzerias.map((eachElement) => {
-                  return (
-                    <Marker position={eachElement.coordinates} key={eachElement._id}>
-                      <Popup>
-                        <p>
-                          Pizzeria: <b>{eachElement.username}</b>
-                        </p>
-                      </Popup>
-                    </Marker>
-                  );
-                })}
-              </MapContainer>
-            </div>
+            {showMap === true ? (
+              <>
+                <button onClick={() => setShowMap(!showMap)}>Hide map</button>
+                <div>
+                  <MapContainer
+                    center={center}
+                    zoom={13}
+                    scrollWheelZoom={false}
+                  >
+                    <TileLayer
+                      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    />
+                    {allPizzerias.map((eachElement) => {
+                      return (
+                        <Marker
+                          position={eachElement.coordinates}
+                          key={eachElement._id}
+                        >
+                          <Popup>
+                            <p>
+                              Pizzeria: <b>{eachElement.username}</b>
+                            </p>
+                            <p>
+                              Address: <b>{eachElement.address}</b>
+                            </p>
+                            <p>
+                              City: <b>{eachElement.city}</b>
+                            </p>
+                          </Popup>
+                        </Marker>
+                      );
+                    })}
+                  </MapContainer>
+                </div>
+              </>
+            ) : (
+              <button onClick={() => setShowMap(!showMap)}>View map of Pizzerias</button>
+            )}
           </div>
         )}
       </div>
@@ -149,7 +168,7 @@ function Home() {
                   );
                 })
               ) : (
-                <p>No pizzas with that name</p>
+                <p>Sorry, no pizzas with that name</p>
               )}
             </div>
           )}

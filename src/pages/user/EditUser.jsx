@@ -8,7 +8,7 @@ import {
   updateOneUser,
 } from "../../services/user.services.js";
 
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet"; // for Leaflet Component imports
+import { MapContainer, TileLayer, Marker } from "react-leaflet"; // for Leaflet Component imports
 import ClickMarker from "../../components/ClickMarker";
 
 function EditUser() {
@@ -16,10 +16,11 @@ function EditUser() {
 
   const { authenticateUSer } = useContext(AuthContext);
 
-  const [firstNameInput, setFirstNameInput] = useState("");
-  const [lastNameInput, setLastNameInput] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
+  const [role, setRole] = useState("");
   const [imageUrl, setImageUrl] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
 
@@ -63,10 +64,11 @@ function EditUser() {
   const getData = async () => {
     try {
       const response = await getUserData();
-      setFirstNameInput(response.data.firstNameInput);
-      setLastNameInput(response.data.lastNameInput);
+      setFirstName(response.data.firstName);
+      setLastName(response.data.lastName);
       setAddress(response.data.address);
       setCity(response.data.city);
+      setRole(response.data.role);
     } catch (error) {
       navigate("/error");
     }
@@ -75,12 +77,12 @@ function EditUser() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const updateUser = {
-      firstName: firstNameInput,
-      lastName: lastNameInput,
+      firstName: firstName,
+      lastName: lastName,
       imageUrl: imageUrl,
       address: address,
       city: city,
-      coordinates: clickedPosition, 
+      coordinates: clickedPosition,
     };
     try {
       await updateOneUser(updateUser);
@@ -105,26 +107,30 @@ function EditUser() {
     <div>
       <h1>Edit Info</h1>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="name">Name</label>
-        <input
-          type="text"
-          name="name"
-          value={firstNameInput}
-          onChange={(event) => {
-            setFirstNameInput(event.target.value);
-          }}
-        />
-        <br />
-        <label htmlFor="lastname">Lastame</label>
-        <input
-          type="text"
-          name="lastname"
-          value={lastNameInput}
-          onChange={(event) => {
-            setLastNameInput(event.target.value);
-          }}
-        />
-        <br />
+        {role === "Client" ? (
+          <>
+            <label htmlFor="name">Name</label>
+            <input
+              type="text"
+              name="name"
+              value={firstName}
+              onChange={(event) => {
+                setFirstName(event.target.value);
+              }}
+            />
+            <br />
+            <label htmlFor="lastname">Lastame</label>
+            <input
+              type="text"
+              name="lastname"
+              value={lastName}
+              onChange={(event) => {
+                setLastName(event.target.value);
+              }}
+            />
+            <br />
+          </>
+        ) : null}
         <label htmlFor="address">Address</label>
         <input
           type="text"
@@ -162,17 +168,17 @@ function EditUser() {
         <button type="submit">Update</button>
       </form>
       <button onClick={() => handleRemoveUser()}>Remove user</button>
-
-      <MapContainer center={center} zoom={13} scrollWheelZoom={false}>
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        {/* invoke Marker Componentes here */}
-        <ClickMarker setClickedPosition={setClickedPosition} />
-        { clickedPosition !== null && <Marker position={clickedPosition} /> }
-      </MapContainer>
-      
+      {role === "Restaurant" ? (
+        <MapContainer center={center} zoom={13} scrollWheelZoom={false}>
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          {/* invoke Marker Componentes here */}
+          <ClickMarker setClickedPosition={setClickedPosition} />
+          {clickedPosition !== null && <Marker position={clickedPosition} />}
+        </MapContainer>
+      ) : null}
     </div>
   );
 }
