@@ -47,7 +47,8 @@ function Navbar() {
       <div style={navStyle}>
         <NavLink to="/" style={toggleStyles}> Home </NavLink>
         {/* <NavLink to="/todos" end={true} style={toggleStyles}> See List </NavLink> */}
-        <p>Pizza Hub</p>
+        {/* <p>Pizza Hub</p> */}
+        <img src="./Logo.png" alt="logo" width={150}/>
         <NavLink to="/user" style={toggleStyles}> Profile </NavLink>
         <span onClick={handleLogout}>Logout</span>
       </div>
