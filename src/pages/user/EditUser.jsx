@@ -104,53 +104,68 @@ function EditUser() {
   };
 
   return (
-    <div>
+    <div className="ms-0 me-0 pt-5 pb-5">
       <h1>Edit Info</h1>
-      <form onSubmit={handleSubmit}>
+      <form className="ms-3 me-3" onSubmit={handleSubmit}>
         {role === "Client" ? (
           <>
-            <label htmlFor="name">Name</label>
-            <input
-              type="text"
-              name="name"
-              value={firstName}
-              onChange={(event) => {
-                setFirstName(event.target.value);
-              }}
-            />
-            <br />
-            <label htmlFor="lastname">Lastame</label>
-            <input
-              type="text"
-              name="lastname"
-              value={lastName}
-              onChange={(event) => {
-                setLastName(event.target.value);
-              }}
-            />
-            <br />
+            <div className="form-floating mb-3">
+              <input
+                className="form-control"
+                placeholder="Name"
+                type="text"
+                name="name"
+                value={firstName}
+                onChange={(event) => {
+                  setFirstName(event.target.value);
+                }}
+              />
+              <label htmlFor="name">Name</label>
+            </div>
+
+            <div className="form-floating mb-3">
+              <input
+                className="form-control"
+                placeholder="Lastname"
+                type="text"
+                name="lastname"
+                value={lastName}
+                onChange={(event) => {
+                  setLastName(event.target.value);
+                }}
+              />
+              <label htmlFor="lastname">Lastame</label>
+            </div>
           </>
         ) : null}
-        <label htmlFor="address">Address</label>
-        <input
-          type="text"
-          name="address"
-          value={address}
-          onChange={(event) => {
-            setAddress(event.target.value);
-          }}
-        />
-        <br />
-        <label htmlFor="city">City</label>
-        <input
-          type="text"
-          name="city"
-          value={city}
-          onChange={(event) => {
-            setCity(event.target.value);
-          }}
-        />
-        <br />
+        <div className="form-floating mb-3">
+          <input
+            className="form-control"
+            placeholder="Address"
+            type="text"
+            name="address"
+            value={address}
+            onChange={(event) => {
+              setAddress(event.target.value);
+            }}
+          />
+          <label htmlFor="address">Address</label>
+        </div>
+
+        <div className="form-floating mb-3">
+          <input
+            className="form-control"
+            placeholder="City"
+            type="text"
+            name="city"
+            value={city}
+            onChange={(event) => {
+              setCity(event.target.value);
+            }}
+          />
+          <label htmlFor="city">City</label>
+        </div>
+
         <label>Image: </label>
         <input
           type="file"
@@ -161,23 +176,42 @@ function EditUser() {
         {isUploading ? <h3>... uploading image</h3> : null}
         {imageUrl ? (
           <div>
-            <img src={imageUrl} alt="img" width={200} />
+            <img src={imageUrl} alt="img" width={150} padding={0}/>
           </div>
         ) : null}
         <br />
-        <button type="submit">Update</button>
+        <button type="submit" className="btn btn-danger mt-3 me-3 ms-3">
+          Update
+        </button>
+        <button
+          type="button"
+          className="btn btn-danger mt-3 me-3 ms-3"
+          onClick={() => handleRemoveUser()}
+        >
+          Remove user
+        </button>
       </form>
-      <button onClick={() => handleRemoveUser()}>Remove user</button>
+      <br />
       {role === "Restaurant" ? (
-        <MapContainer center={center} zoom={13} scrollWheelZoom={false}>
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          {/* invoke Marker Componentes here */}
-          <ClickMarker setClickedPosition={setClickedPosition} />
-          {clickedPosition !== null && <Marker position={clickedPosition} />}
-        </MapContainer>
+        <div className="ms-3 me-3">
+          <p className="ps-5 pe-5">
+            When you have found the right address, click on the map and a marker
+            will appear
+          </p>
+          <div className="mt-1 mb-3 ms-4 me-3">
+            <MapContainer center={center} zoom={13} scrollWheelZoom={false}>
+              <TileLayer
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              {/* invoke Marker Componentes here */}
+              <ClickMarker setClickedPosition={setClickedPosition} />
+              {clickedPosition !== null && (
+                <Marker position={clickedPosition} />
+              )}
+            </MapContainer>
+          </div>
+        </div>
       ) : null}
     </div>
   );

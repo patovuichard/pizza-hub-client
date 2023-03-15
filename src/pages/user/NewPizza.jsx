@@ -54,7 +54,14 @@ function NewPizza() {
       pizzaName: pizzaName,
       sauce: sauce,
       imageUrl: imageUrl,
-      ingredients: [ingredient1, ingredient2, ingredient3, ingredient4,ingredient5, ingredient6],
+      ingredients: [
+        ingredient1,
+        ingredient2,
+        ingredient3,
+        ingredient4,
+        ingredient5,
+        ingredient6,
+      ],
       price: price,
     };
     try {
@@ -66,102 +73,128 @@ function NewPizza() {
   };
 
   return (
-    <div>
+    <div className="ms-0 me-0 pt-5 pb-5">
       <h1>Create a pizza</h1>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="name">Pizza name: </label>
-        <input
-          type="text"
-          name="name"
-          value={pizzaName}
-          onChange={(event) => {
-            setPizzaName(event.target.value);
-          }}
-        />
-        <br />
-        <label htmlFor="sauce">Sauce: </label>
-        <select
-          name="sauce"
-          onChange={(event) => {
-            setSauce(event.target.value);
-          }}
-        >
-          <option value=""></option>
-          <option value="none">none</option>
-          <option value="red">red</option>
-          <option value="white">white</option>
-        </select>
-        <br />
-        <label htmlFor="ingredients">Ingredient #1: </label>
-        <input
-          type="array"
-          name="ingredients"
-          value={ingredient1}
-          onChange={(event) => {
-            setIngredient1(event.target.value);
-          }}
-        />
-        <br />
-        <label htmlFor="ingredients">Ingredient #2: </label>
-        <input
-          type="array"
-          name="ingredients"
-          value={ingredient2}
-          onChange={(event) => {
-            setIngredient2(event.target.value);
-          }}
-        />
-        <br />
-        <label htmlFor="address">Ingredient #3: </label>
-        <input
-          type="text"
-          name="address"
-          value={ingredient3}
-          onChange={(event) => {
-            setIngredient3(event.target.value);
-          }}
-        />
-        <br />
-        <label htmlFor="address">Ingredient #4: </label>
-        <input
-          type="text"
-          name="address"
-          value={ingredient4}
-          onChange={(event) => {
-            setIngredient4(event.target.value);
-          }}
-        />
-        <br />
-        <label htmlFor="address">Ingredient #5: </label>
-        <input
-          type="text"
-          name="address"
-          value={ingredient5}
-          onChange={(event) => {
-            setIngredient5(event.target.value);
-          }}
-        />
-        <br />
-        <label htmlFor="address">Ingredient #6: </label>
-        <input
-          type="text"
-          name="address"
-          value={ingredient6}
-          onChange={(event) => {
-            setIngredient6(event.target.value);
-          }}
-        />
-        <br />
-        <label htmlFor="price">Price </label>
-        <input
-          type="number"
-          name="price"
-          value={price}
-          onChange={(event) => {
-            setPrice(event.target.value);
-          }}
-        />
-        <br />
+      <form className="ms-3 me-3 pt-3 pb-3" onSubmit={handleSubmit}>
+        <div className="form-floating mb-3">
+          <input
+            className="form-control"
+            placeholder="Pizza name"
+            type="text"
+            name="name"
+            value={pizzaName}
+            onChange={(event) => {
+              setPizzaName(event.target.value);
+            }}
+          />
+          <label htmlFor="name">Pizza name</label>
+        </div>
+        <div className="form-floating mb-3">
+          <select
+            className="form-select" aria-label="Floating label select example"
+            name="sauce"
+            onChange={(event) => {
+              setSauce(event.target.value);
+            }}
+          >
+            <option value=""></option>
+            <option value="none">none</option>
+            <option value="red">red</option>
+            <option value="white">white</option>
+          </select>
+          <label htmlFor="sauce">Sauce</label>
+        </div>
+        <div className="form-floating mb-3">
+          <input
+            className="form-control"
+            placeholder="Ingredient #1"
+            type="array"
+            name="ingredients"
+            value={ingredient1}
+            onChange={(event) => {
+              setIngredient1(event.target.value);
+            }}
+          />
+          <label htmlFor="ingredients">Ingredient #1</label>
+        </div>
+        <div className="form-floating mb-3">
+          <input
+            className="form-control"
+            placeholder="Ingredient #2"
+            type="array"
+            name="ingredients"
+            value={ingredient2}
+            onChange={(event) => {
+              setIngredient2(event.target.value);
+            }}
+          />
+          <label htmlFor="ingredients">Ingredient #2</label>
+        </div>
+        <div className="form-floating mb-3">
+          <input
+            className="form-control"
+            placeholder="Ingredient #3"
+            type="text"
+            name="address"
+            value={ingredient3}
+            onChange={(event) => {
+              setIngredient3(event.target.value);
+            }}
+          />
+          <label htmlFor="address">Ingredient #3</label>
+        </div>
+        <div className="form-floating mb-3">
+          <input
+            className="form-control"
+            placeholder="Ingredient #4"
+            type="text"
+            name="address"
+            value={ingredient4}
+            onChange={(event) => {
+              setIngredient4(event.target.value);
+            }}
+          />
+          <label htmlFor="address">Ingredient #4</label>
+        </div>
+        <div className="form-floating mb-3">
+          <input
+          className="form-control"
+            placeholder="Ingredient #5"
+            type="text"
+            name="address"
+            value={ingredient5}
+            onChange={(event) => {
+              setIngredient5(event.target.value);
+            }}
+          />
+          <label htmlFor="address">Ingredient #5</label>
+        </div>
+        <div className="form-floating mb-3">
+          <input
+          className="form-control"
+            placeholder="Ingredient #6"
+            type="text"
+            name="address"
+            value={ingredient6}
+            onChange={(event) => {
+              setIngredient6(event.target.value);
+            }}
+          />
+          <label htmlFor="address">Ingredient #6</label>
+        </div>
+        <div className="form-floating mb-3">
+          <input
+          className="form-control"
+            placeholder="Price"
+            type="number"
+            name="price"
+            value={price}
+            onChange={(event) => {
+              setPrice(event.target.value);
+            }}
+          />
+          <label htmlFor="price">Price</label>
+        </div>
         <label>Image: </label>
         <input
           type="file"
@@ -176,7 +209,9 @@ function NewPizza() {
           </div>
         ) : null}
         <br />
-        <button type="submit">Create</button>
+        <button className="btn btn-danger mt-3 mb-3 me-3 ms-3" type="submit">
+          Create
+        </button>
       </form>
     </div>
   );

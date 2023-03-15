@@ -32,31 +32,40 @@ function User() {
   };
 
   return (
-    <>
+    <div>
       {isFetching ? (
-        <p>... loading</p>
+        <img src="./pizza.svg" className="App-logo" alt="pizza" />
       ) : (
-        <div>
+        <div className="ms-0 me-0 pt-5 pb-5">
           {userInfo.role === "Restaurant" ? (
             <div>
-              <h1>{userInfo.role} {userInfo.username}</h1>
+              <h1>
+                {userInfo.role} {userInfo.username}
+              </h1>
               <div>
                 <img src={userInfo.imageUrl} alt="profile-img" width={100} />
                 {/* <p>Username: {userInfo.username}</p> */}
               </div>
               <div>
                 <p>
-                  Address: {userInfo.address}, {userInfo.city}
+                  Address:{" "}
+                  <b>
+                    {userInfo.address}, {userInfo.city}
+                  </b>
                 </p>
                 <Link to={`/user/edit`}>
-                  <button>Edit</button>
+                  <button type="button" className="btn btn-danger mt-3 mb-3 me-3 ms-3">
+                    Edit
+                  </button>
                 </Link>
               </div>
               {/* <p>Pending Orders</p>
               <p>...</p> */}
-              <p>My pizzas</p>
+              <h3>My pizzas</h3>
               <Link to={"/user/pizza-create"}>
-                <button>Create new Pizza</button>
+                <button type="button" className="btn btn-danger mt-3 mb-3 me-3 ms-3">
+                  Create new Pizza
+                </button>
               </Link>
               <div>
                 {pizzasInfo.map((elem) => {
@@ -64,7 +73,9 @@ function User() {
                     <div key={elem._id}>
                       <Link to={`/user/pizza-edit/${elem._id}`}>
                         <img src={elem.imageUrl} alt="pizza" width={100} />
-                        <p>{elem.pizzaName}</p>
+                        <p>
+                          <b>{elem.pizzaName}</b>
+                        </p>
                       </Link>
                     </div>
                   );
@@ -73,26 +84,40 @@ function User() {
             </div>
           ) : (
             <div>
-            <h1>{userInfo.role} info</h1>
+              <h1>{userInfo.role} info</h1>
               <div>
                 <img src={userInfo.imageUrl} alt="profile-img" width={100} />
-                <p>Username: {userInfo.username}</p>
+                <p>
+                  Username: <b>{userInfo.username}</b>
+                </p>
               </div>
               <div>
-                <p>Name: {userInfo.firstName}</p>
-                <p>Lastname: {userInfo.lastName}</p>
                 <p>
-                  Address: {userInfo.address}, {userInfo.city}
+                  Name: <b>{userInfo.firstName}</b>
+                </p>
+                <p>
+                  Lastname: <b>{userInfo.lastName}</b>
+                </p>
+                <p>
+                  Address:{" "}
+                  <b>
+                    {userInfo.address}, {userInfo.city}
+                  </b>
                 </p>
                 <Link to={`/user/edit`}>
-                  <button>Edit</button>
+                  <button
+                    type="button"
+                    className="btn btn-danger mt-3 mb-3 me-3 ms-3"
+                  >
+                    Edit
+                  </button>
                 </Link>
               </div>
             </div>
           )}
         </div>
       )}
-    </>
+    </div>
   );
 }
 

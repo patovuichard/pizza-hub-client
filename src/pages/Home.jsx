@@ -109,7 +109,7 @@ function Home() {
             )}
             {showMap === true ? (
               <>
-                <button onClick={() => setShowMap(!showMap)}>Hide map</button>
+                <button type="button" className="btn btn-danger" onClick={() => setShowMap(!showMap)}>Hide map</button>
                 <div>
                   <MapContainer
                     center={center}
@@ -144,7 +144,7 @@ function Home() {
                 </div>
               </>
             ) : (
-              <button onClick={() => setShowMap(!showMap)}>View map of Pizzerias</button>
+              <button type="button" className="btn btn-danger" onClick={() => setShowMap(!showMap)}>View map of Pizzerias</button>
             )}
           </div>
         )}

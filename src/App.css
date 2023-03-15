@@ -37,6 +37,14 @@ a {
   width: 300px; /* example */
 }
 
+.nav-link {
+  color: white;
+}
+
+.btn-danger {
+  background-color: #ee3a43;
+}
+
 /* .App-header {
   background-color: #282c34;
   min-height: 100vh;

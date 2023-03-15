@@ -31,16 +31,25 @@ function AnyPizzeria() {
   };
 
   return (
-    <div>
+    <div className="ms-0 me-0 pt-5 pb-5">
       {isFetching ? (
         <img src="../pizza.svg" className="App-logo" alt="pizza" />
       ) : (
         <div>
-          <div>
-            <h1>{userData.username}</h1>
-            <h4>
-              Address: {userData.address}, {userData.city}
-            </h4>
+          <div className="card mb-3" style={{maxWidth: "350px"}}>
+            <div className="row g-0">
+              <div className="col-md-4">
+                <img src={userData.imageUrl} alt="userImage" width={150} />
+              </div>
+              <div className="col-md-8">
+                <div className="card-body">
+                  <h1 className="card-title">{userData.username}</h1>
+                  <h4 className="card-text">
+                    Address: {userData.address}, {userData.city}
+                  </h4>
+                </div>
+              </div>
+            </div>
           </div>
           <div>
             <h2>Pizzas</h2>

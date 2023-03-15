@@ -12,14 +12,16 @@ function Search(props) {
 
   return (
     <>
-      <form>
-        <label htmlFor="search">Search </label>
+      <form className="form-floating mb-3 mt-3">
         <input
+          className="form-control"
+          placeholder="Search"
           name="search"
           value={searchInput}
           type="text"
           onChange={handleSearch}
         />
+        <label htmlFor="search">Search </label>
       </form>
     </>
   );

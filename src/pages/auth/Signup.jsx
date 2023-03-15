@@ -35,42 +35,50 @@ function Signup() {
   };
 
   return (
-    <div>
+    <div className="ms-0 me-0 pt-5 pb-5">
       <h1>Sign Up</h1>
-
-      <form onSubmit={handleSignup}>
-        <label>Username:</label>
-        <input
-          type="username"
-          name="username"
-          value={username}
-          onChange={handleUsernameChange}
-        />
-        <br />
-        <label>Password:</label>
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={handlePasswordChange}
-        />
-        <br />
-        <label htmlFor="role">Role: </label>
-        <select
-          name="role"
-          onChange={(event) => {
-            setRole(event.target.value);
-          }}
-        >
-          <option value=""> </option>
-          <option value="Client">Client</option>
-          <option value="Restaurant">Restaurant</option>
-        </select>
-        <br />
-
+      <form className="ms-3 me-3 pt-3 pb-3" onSubmit={handleSignup}>
+        <div className="form-floating mb-3">
+          <input
+            className="form-control"
+            placeholder="Userame"
+            type="username"
+            name="username"
+            value={username}
+            onChange={handleUsernameChange}
+          />
+          <label>Username</label>
+        </div>
+        <div className="form-floating mb-3">
+          <input
+            className="form-control"
+            placeholder="Password"
+            type="password"
+            name="password"
+            value={password}
+            onChange={handlePasswordChange}
+          />
+          <label>Password</label>
+        </div>
+        <div className="form-floating">
+          <select
+            className="form-select" aria-label="Floating label select example"
+            name="role"
+            onChange={(event) => {
+              setRole(event.target.value);
+            }}
+          >
+            <option value=""> </option>
+            <option value="Client">Client</option>
+            <option value="Restaurant">Restaurant</option>
+          </select>
+          <label htmlFor="role">Role</label>
+        </div>
         {errorMessage !== "" ? <p>{errorMessage}</p> : null}
 
-        <button type="submit">Signup</button>
+        <button type="submit" className="btn btn-danger mt-3 mb-3 me-3 ms-3">
+          Signup
+        </button>
       </form>
     </div>
   );

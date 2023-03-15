@@ -47,28 +47,33 @@ function Login() {
   };
 
   return (
-    <div>
+    <div className="ms-0 me-0 pt-5 pb-5">
       <h1>Log In</h1>
-
-      <form onSubmit={handleLogin}>
-        <label>Username:</label>
-        <input
-          type="username"
-          name="username"
-          value={username}
-          onChange={handleusernameChange}
-        />
-        <br />
-        <label>Password:</label>
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={handlePasswordChange}
-        />
-        <br />
+      <form className="ms-3 me-3 pt-3 pb-3" onSubmit={handleLogin}>
+        <div className="form-floating mb-3">
+          <input
+            className="form-control"
+            placeholder="Userame"
+            type="username"
+            name="username"
+            value={username}
+            onChange={handleusernameChange}
+          />
+          <label>Username</label>
+        </div>
+        <div className="form-floating mb-3">
+          <input
+            className="form-control"
+            placeholder="Password"
+            type="password"
+            name="password"
+            value={password}
+            onChange={handlePasswordChange}
+          />
+          <label>Password</label>
+        </div>
         {errorMessage !== "" ? <p>{errorMessage}</p> : null}
-        <button type="submit">Login</button>
+        <button type="submit" className="btn btn-danger mt-3 mb-3 me-3 ms-3">Login</button>
       </form>
     </div>
   );

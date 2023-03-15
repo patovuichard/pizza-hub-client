@@ -9,11 +9,11 @@ function Pizza() {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const { isLoggedIn } = useContext(AuthContext)
+  const { isLoggedIn } = useContext(AuthContext);
 
   const [singlePizza, setSinglePizza] = useState(null);
   const [isFetching, setIsFetching] = useState(true);
-  const [showPaymentIntent, setShowPaymentIntent] = useState(false)
+  const [showPaymentIntent, setShowPaymentIntent] = useState(false);
 
   useEffect(() => {
     getPizzaInfo();
@@ -33,37 +33,59 @@ function Pizza() {
   };
 
   return (
-    <>
+    <div className="ms-0 me-0 pt-5 pb-5">
       <h1>Pizza details</h1>
       {isFetching ? (
         <img src="../pizza.svg" className="App-logo" alt="pizza" />
       ) : (
         <>
-          <div>
-            <img src={singlePizza.imageUrl} alt="pizza" width={100}/>
+          <div className="card">
+            <img
+              src={singlePizza.imageUrl}
+              className="card-img-top"
+              alt="pizza"
+              width={100}
+            />
+            <div className="card-body">
+              <h2 className="card-title">
+                <b>{singlePizza.pizzaName}</b>
+              </h2>
+              <ul className="list-group list-group-flush">
+              <h4 className="list-group-item">
+                Price: <b>€{singlePizza.price}</b>
+              </h4>
+                <h4 className="list-group-item">
+                  Sauce: <b>{singlePizza.sauce}</b>
+                </h4>
+                <h4>Ingredients:</h4>
+                {singlePizza.ingredients.map((elem) => {
+                  return (
+                    <div key={elem._id}>
+                      <p className="card-text">{elem}</p>
+                    </div>
+                  );
+                })}
+              </ul>
+            </div>
           </div>
-          <div>
-            <h2>{singlePizza.pizzaName}</h2>
-            <h4>Sauce: {singlePizza.sauce}</h4>
-            <h4>Price: €{singlePizza.price}</h4>
-            <h4>Ingredients:</h4>
-              {singlePizza.ingredients.map((elem) => {
-                return <p key={elem._id}>{elem}</p>;
-              })}
-          </div>
-          {isLoggedIn ?
+          {isLoggedIn ? (
             <div>
-              { 
-                showPaymentIntent === false
-                ? <button onClick={() => setShowPaymentIntent(true)}>Buy</button> 
-                : <PaymentIntent productDetails={ singlePizza }/> 
-              }
-            </div> :
-            null
-          }
+              {showPaymentIntent === false ? (
+                <button
+                  type="button"
+                  className="btn btn-danger mt-3 mb-3 me-3 ms-3"
+                  onClick={() => setShowPaymentIntent(true)}
+                >
+                  Buy
+                </button>
+              ) : (
+                <PaymentIntent productDetails={singlePizza} />
+              )}
+            </div>
+          ) : null}
         </>
       )}
-    </>
+    </div>
   );
 }
 
