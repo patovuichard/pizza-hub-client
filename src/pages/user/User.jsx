@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { getOrders } from "../../services/order.services";
+import { getOrders, getOrdersRestaurant, removeOrder } from "../../services/order.services";
 import { getPizzasByRestaurant } from "../../services/pizza.services";
 import { getUserData } from "../../services/user.services";
 
@@ -9,9 +9,12 @@ function User() {
 
   const [userInfo, setUserInfo] = useState(null);
   const [pizzasInfo, setPizzasInfo] = useState(null);
-  const [orders, setOrders] = useState([])
+  const [orders, setOrders] = useState([]);
+  const [ordersRestaurant, setOrdersRestaurant] = useState([]);
   const [favPizza, setFavPizza] = useState([]);
+
   const [isFetching, setIsFetching] = useState(true);
+  const [showOrders, setShowOrders] = useState(false);
 
   useEffect(() => {
     getData();
@@ -23,18 +26,30 @@ function User() {
       const user = await getUserData();
       setUserInfo(user.data);
       setFavPizza(user.data.favouritePizzas);
-      
+
       const pizzas = await getPizzasByRestaurant(user.data._id);
       setPizzasInfo(pizzas.data);
-      setIsFetching(false);
-      
+
       const allOrders = await getOrders();
-      console.log(allOrders.data);
-      setOrders(allOrders.data)
+      setOrders(allOrders.data);
+
+      const allOrdersRestaurant = await getOrdersRestaurant();
+      setOrdersRestaurant(allOrdersRestaurant.data);
+
+      setIsFetching(false);
     } catch (error) {
       navigate("/error");
     }
   };
+
+  const cancelOrder = async (orderId) => {
+    try {
+      await removeOrder(orderId)
+      navigate("/user")
+    } catch (error) {
+      navigate("/error")
+    }
+  }
 
   return (
     <div>
@@ -68,8 +83,49 @@ function User() {
                   </button>
                 </Link>
               </div>
-              {/* <p>Pending Orders</p>
-              <p>...</p> */}
+              {/* Pending Orders  */}
+              {showOrders ? (
+                <div>
+                  <button
+                    type="button"
+                    className="btn btn-danger mt-3"
+                    onClick={() => setShowOrders(false)}
+                  >
+                    Hide Pizza orders
+                  </button>
+                  {ordersRestaurant.length > 0 ? (
+                    <>
+                      <hr />
+                      {ordersRestaurant.map((elem) => {
+                        return (
+                          <div key={elem._id}>
+                            <p>
+                              Order: <b>{elem.pizzaOrder.pizzaName}</b> pizza
+                            </p>
+                            <p>
+                              Status: <b>{elem.pendingApproval}</b>
+                            </p>
+                            <hr />
+                          </div>
+                        );
+                      })}
+                    </>
+                  ) : (
+                    <p>Not even one, start selling them!</p>
+                  )}
+                </div>
+              ) : (
+                <div>
+                  <button
+                    type="button"
+                    className="btn btn-danger mt-3 mb-3"
+                    onClick={() => setShowOrders(true)}
+                  >
+                    Show Pizza orders
+                  </button>
+                </div>
+              )}
+              {/* Restaurant pizzas */}
               <h3>My pizzas</h3>
               <Link to={"/user/pizza-create"}>
                 <button
@@ -128,21 +184,55 @@ function User() {
                 </Link>
               </div>
               {/* Orders */}
-              <div>
-                <h3>Pizza orders</h3>
-                {orders.length > 0 ? (
-                  <>
-                    {orders.map((elem)=>{
-                      return (
-                        <p>Order status: {elem.pendingApproval}</p>
-                      )
-                    })}
-                  </>
-                ) : (
-                  <p>Not even one, get some PIZZA!</p>
-                )}
-              </div>
-              {/* favourites */}
+              {showOrders ? (
+                <div>
+                  <button
+                    type="button"
+                    className="btn btn-danger mt-3"
+                    onClick={() => setShowOrders(false)}
+                  >
+                    Hide Pizza orders
+                  </button>
+                  {orders.length > 0 ? (
+                    <>
+                      <hr />
+                      {orders.map((elem) => {
+                        return (
+                          <div key={elem._id}>
+                            <p>
+                              <b>{elem.pizzaOrder.pizzaName}</b> pizza order
+                            </p>
+                            <p>
+                              Status: <b>{elem.pendingApproval}</b>
+                            </p>
+                            <button
+                              type="button"
+                              className="btn btn-danger mt-0"
+                              onClick={()=>cancelOrder(elem._id)}
+                            >
+                              Cancel
+                            </button>
+                            <hr />
+                          </div>
+                        );
+                      })}
+                    </>
+                  ) : (
+                    <p>Not even one, get some PIZZA!</p>
+                  )}
+                </div>
+              ) : (
+                <div>
+                  <button
+                    type="button"
+                    className="btn btn-danger mt-3 mb-3"
+                    onClick={() => setShowOrders(true)}
+                  >
+                    Show Pizza orders
+                  </button>
+                </div>
+              )}
+              {/* favourite pizzas */}
               <div>
                 <h3>My favourite Pizzas</h3>
                 {favPizza.length > 0 ? (

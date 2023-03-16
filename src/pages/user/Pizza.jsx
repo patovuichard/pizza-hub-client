@@ -9,11 +9,12 @@ import { createOrder } from "../../services/order.services";
 function Pizza() {
   const navigate = useNavigate();
   const { id } = useParams();
-
+  
   const { isLoggedIn } = useContext(AuthContext);
-
+  
   const [singlePizza, setSinglePizza] = useState(null);
   const [isFetching, setIsFetching] = useState(true);
+  const [ownerId, setOwnerId] = useState(null)
   const [pizzaAddedFavs, setPizzaAddedFavs] = useState(false)
   const [showPaymentIntent, setShowPaymentIntent] = useState(false);
 
@@ -25,6 +26,8 @@ function Pizza() {
     setIsFetching(true);
     try {
       const response = await getOnePizza(id);
+      setOwnerId(response.data.owner._id)
+      // console.log(ownerId);
       setTimeout(() => {
         setSinglePizza(response.data);
         setIsFetching(false);
@@ -54,8 +57,9 @@ function Pizza() {
 
   const handlePurchase = async () => {
     setShowPaymentIntent(true)
+    console.log(ownerId);
     try {
-      await createOrder(id)
+      await createOrder(id, {ownerId})
     } catch (error) {
       navigate("/error")
     }

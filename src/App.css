@@ -1,4 +1,5 @@
 .App {
+  background-image: url(../public/bg.jpeg);
   text-align: center;
   min-height: 100vh;
   display: flex;
@@ -47,7 +48,7 @@ a {
 }
 
 #pizza-card {
-  background-Color: #F7AAAE;
+  background-Color: rgba(255, 255, 255, 0.9);
   margin: 20px;
   padding: 10px;
   border-radius: 20px;
