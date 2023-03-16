@@ -193,7 +193,7 @@ function User() {
               {/* User view */}
               <div className="all">
                 <h1 className="mb-3">{userInfo.role} info</h1>
-                <img src={userInfo.imageUrl} alt="profile-img" width={100} />
+                <img src={userInfo.imageUrl} alt="profile-img" width={250} />
                 <p>
                   Username: <b>{userInfo.username}</b>
                 </p>
@@ -282,7 +282,7 @@ function User() {
                             <img
                               src={elem.imageUrl}
                               alt="pizza-pict"
-                              width={100}
+                              width={200}
                             />
                             <h4><b>{elem.pizzaName}</b></h4>
                           </Link>

@@ -53,7 +53,7 @@ function AnyPizzeria() {
                 <div key={elem._id}>
                   <hr />
                   <Link to={`/pizza/${elem._id}`}>
-                    <img src={elem.imageUrl} alt="pizza" width={100} />
+                    <img src={elem.imageUrl} alt="pizza" width={250} />
                     <h3>{elem.pizzaName}</h3>
                   </Link>
                 </div>

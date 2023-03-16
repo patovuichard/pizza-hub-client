@@ -97,7 +97,7 @@ function Home() {
               allPizzeriasToDisplay.map((elem) => {
                 return (
                   <Link key={elem._id} to={`/user/${elem._id}`}>
-                    <img src={elem.imageUrl} alt="pizzeria" width={100} />
+                    <img src={elem.imageUrl} alt="pizzeria" width={200} />
                     <p>{elem.username}</p>
                   </Link>
                 );
@@ -159,7 +159,7 @@ function Home() {
                 allPizzasToDisplay.map((elem) => {
                   return (
                     <Link key={elem._id} to={`/pizza/${elem._id}`}>
-                      <img src={elem.imageUrl} alt="pizza" width={100} />
+                      <img src={elem.imageUrl} alt="pizza" width={200} />
                       <p>{elem.pizzaName}</p>
                     </Link>
                   );
