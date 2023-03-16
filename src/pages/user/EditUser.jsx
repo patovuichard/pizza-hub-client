@@ -104,8 +104,8 @@ function EditUser() {
   };
 
   return (
-    <div className="ms-0 me-0 pt-5 pb-5">
-      <div className="all">
+    <div className="mx-0 py-5">
+      <div className="all mx-0">
         <h1 className="mb-3">Edit Info</h1>
       </div>
       <form onSubmit={handleSubmit}>

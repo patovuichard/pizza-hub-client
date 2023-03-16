@@ -71,7 +71,7 @@ function Pizza() {
         <img src="../pizza.svg" className="App-logo" alt="pizza" />
       ) : (
         <>
-          <div className="card mt-5 mb-3">
+          <div className="card mt-5 mb-3" width={250}>
             <img
               src={singlePizza.imageUrl}
               className="card-img-top"

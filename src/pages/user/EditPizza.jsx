@@ -109,11 +109,11 @@ function EditPizza() {
   };
 
   return (
-    <div className="ms-0 me-0 pt-5 pb-5">
-      <div className="all">
+    <div className="mx-0 py-5">
+      <div className="all mx-0" width={300}>
         <h1 className="mb-3">Edit pizza</h1>
       </div>
-      <form className="ms-3 me-3 pt-3 pb-3" onSubmit={handleSubmit}>
+      <form className="mx-0 px-0 py-3" onSubmit={handleSubmit}>
         <div className="form-floating mb-3">
           <input
             className="form-control"
