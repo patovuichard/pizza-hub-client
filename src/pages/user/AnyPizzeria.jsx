@@ -36,17 +36,17 @@ function AnyPizzeria() {
         <img src="../pizza.svg" className="App-logo" alt="pizza" />
       ) : (
         <div>
-          <div className="card mb-3" style={{maxWidth: "350px"}}>
+          <div className="card mb-3" style={{maxWidth: "250px"}}>
             <div className="row g-0">
               <div className="col-md-4">
-                <img src={userData.imageUrl} alt="userImage" width={150} />
+                <img src={userData.imageUrl} alt="userImage" width={250}/>
               </div>
               <div className="col-md-8">
                 <div className="card-body">
                   <h1 className="card-title">{userData.username}</h1>
-                  <h4 className="card-text">
-                    Address: {userData.address}, {userData.city}
-                  </h4>
+                  <h4 className="card-text">Address:</h4>
+                  <h4 className="card-text">{userData.address}</h4>
+                  <h4 className="card-text">{userData.city}</h4>
                 </div>
               </div>
             </div>
