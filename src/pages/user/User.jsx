@@ -8,6 +8,7 @@ function User() {
 
   const [userInfo, setUserInfo] = useState(null);
   const [pizzasInfo, setPizzasInfo] = useState(null);
+  const [favPizza, setFavPizza] = useState([])
   const [isFetching, setIsFetching] = useState(true);
 
   useEffect(() => {
@@ -18,14 +19,16 @@ function User() {
     setIsFetching(true);
     try {
       const user = await getUserData();
-      setTimeout(() => {
-        setUserInfo(user.data);
-      }, 800);
+      // console.log(user.data.favouritePizzas);
+      setUserInfo(user.data);
+      setFavPizza(user.data.favouritePizzas)
+      // setTimeout(() => {
+      // }, 800);
       const pizzas = await getPizzasByRestaurant(user.data._id);
-      setTimeout(() => {
-        setPizzasInfo(pizzas.data);
-        setIsFetching(false);
-      }, 1000);
+      setPizzasInfo(pizzas.data);
+      setIsFetching(false);
+      // setTimeout(() => {
+      // }, 1000);
     } catch (error) {
       navigate("/error");
     }
@@ -112,6 +115,18 @@ function User() {
                     Edit
                   </button>
                 </Link>
+              </div>
+              {/* Add favs */}
+              <div>
+                <h3>My favourite Pizzas</h3>
+                {favPizza.map((elem) => {
+                  return (
+                  <div key={elem._id}>
+                    <img src={elem.imageUrl} alt="pizza-pict" width={100}/>
+                    <h4>{elem.pizzaName}</h4>
+                  </div>
+                  )
+                })}
               </div>
             </div>
           )}

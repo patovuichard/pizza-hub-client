@@ -91,7 +91,8 @@ function NewPizza() {
         </div>
         <div className="form-floating mb-3">
           <select
-            className="form-select" aria-label="Floating label select example"
+            className="form-select"
+            aria-label="Floating label select example"
             name="sauce"
             onChange={(event) => {
               setSauce(event.target.value);
@@ -185,7 +186,7 @@ function NewPizza() {
         <div className="form-floating mb-3">
           <input
           className="form-control"
-            placeholder="Price"
+            placeholder="Price €"
             type="number"
             name="price"
             value={price}
@@ -193,7 +194,7 @@ function NewPizza() {
               setPrice(event.target.value);
             }}
           />
-          <label htmlFor="price">Price</label>
+          <label htmlFor="price">Price €</label>
         </div>
         <label>Image: </label>
         <input

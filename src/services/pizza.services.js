@@ -20,8 +20,16 @@ const deleteOnePizza = (id) => {
   return service.delete(`/pizza/${id}`)
 }
 
-const getOnePizza = (id)=> {
+const getOnePizza = (id) => {
   return service.get(`/pizza/${id}`)
+}
+
+const addFavPizza = (id) => {
+  return service.post(`/pizza/${id}`)
+}
+
+const removeFavPizza = (id) => {
+  return service.post(`/pizza/${id}/remove`)
 }
 
 export {
@@ -30,5 +38,7 @@ export {
   createNewPizza,
   updateOnePizza,
   deleteOnePizza,
-  getOnePizza
+  getOnePizza,
+  addFavPizza,
+  removeFavPizza,
 }

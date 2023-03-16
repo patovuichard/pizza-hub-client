@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import PaymentIntent from "../../components/PaymentIntent";
-import { getOnePizza } from "../../services/pizza.services";
+import { addFavPizza, getOnePizza, removeFavPizza } from "../../services/pizza.services";
 import { useContext } from "react";
 import { AuthContext } from "../../context/auth.context";
 
@@ -13,6 +13,7 @@ function Pizza() {
 
   const [singlePizza, setSinglePizza] = useState(null);
   const [isFetching, setIsFetching] = useState(true);
+  const [pizzaAddedFavs, setPizzaAddedFavs] = useState(false)
   const [showPaymentIntent, setShowPaymentIntent] = useState(false);
 
   useEffect(() => {
@@ -32,6 +33,23 @@ function Pizza() {
     }
   };
 
+  const handleAddFavPizzas = async () => {
+    try {
+      await addFavPizza(id);
+      setPizzaAddedFavs(true)
+    } catch (error) {
+      navigate("/error");
+    }
+  };
+  const handleRmoveFavPizzas = async () => {
+    try {
+      await removeFavPizza(id)
+      setPizzaAddedFavs(false)
+    } catch (error) {
+      navigate("/error");
+    }
+  }
+
   return (
     <div className="ms-0 me-0 pt-5 pb-5">
       <h1>Pizza details</h1>
@@ -39,7 +57,7 @@ function Pizza() {
         <img src="../pizza.svg" className="App-logo" alt="pizza" />
       ) : (
         <>
-          <div className="card">
+          <div className="card mt-5 mb-3">
             <img
               src={singlePizza.imageUrl}
               className="card-img-top"
@@ -51,20 +69,39 @@ function Pizza() {
                 <b>{singlePizza.pizzaName}</b>
               </h2>
               <ul className="list-group list-group-flush">
-              <h4 className="list-group-item">
-                Price: <b>€{singlePizza.price}</b>
-              </h4>
+                <h4 className="list-group-item">
+                  Price: <b>€{singlePizza.price}</b>
+                </h4>
                 <h4 className="list-group-item">
                   Sauce: <b>{singlePizza.sauce}</b>
                 </h4>
                 <h4>Ingredients:</h4>
                 {singlePizza.ingredients.map((elem) => {
                   return (
-                    <div key={elem._id}>
-                      <p className="card-text">{elem}</p>
-                    </div>
+                    <p key={elem._id} className="card-text">
+                      {elem}
+                    </p>
                   );
                 })}
+                {isLoggedIn ? (
+                  <>
+                    {pizzaAddedFavs ? (
+                      <button
+                        className="btn btn-danger ms-4 me-4"
+                        onClick={handleRmoveFavPizzas}
+                      >
+                      Remove from favourites
+                      </button>
+                    ) : (
+                      <button
+                        className="btn btn-danger ms-5 me-5"
+                        onClick={handleAddFavPizzas}
+                      >
+                        Add to favourites
+                      </button>
+                    )}
+                  </>
+                ) : null}
               </ul>
             </div>
           </div>

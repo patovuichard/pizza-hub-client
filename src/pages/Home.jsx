@@ -105,11 +105,11 @@ function Home() {
                 );
               })
             ) : (
-              <p>Sorry, no Pizzerias with that name</p>
+              <p>Sorry, no Pizzerias with that name... yet</p>
             )}
             {showMap === true ? (
               <>
-                <button type="button" className="btn btn-danger" onClick={() => setShowMap(!showMap)}>Hide map</button>
+                <button type="button" className="btn btn-danger mt-3 mb-3 me-3 ms-3" onClick={() => setShowMap(!showMap)}>Hide map</button>
                 <div>
                   <MapContainer
                     center={center}
@@ -144,7 +144,7 @@ function Home() {
                 </div>
               </>
             ) : (
-              <button type="button" className="btn btn-danger" onClick={() => setShowMap(!showMap)}>View map of Pizzerias</button>
+              <button type="button" className="btn btn-danger mt-3 mb-3 me-3 ms-3" onClick={() => setShowMap(!showMap)}>View map of Pizzerias</button>
             )}
           </div>
         )}
@@ -168,7 +168,7 @@ function Home() {
                   );
                 })
               ) : (
-                <p>Sorry, no pizzas with that name</p>
+                <p>Sorry, no pizzas with that name... yet</p>
               )}
             </div>
           )}
