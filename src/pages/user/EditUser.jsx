@@ -105,7 +105,9 @@ function EditUser() {
 
   return (
     <div className="ms-0 me-0 pt-5 pb-5">
-      <h1>Edit Info</h1>
+      <div className="all">
+        <h1>Edit Info</h1>
+      </div>
       <form className="ms-3 me-3" onSubmit={handleSubmit}>
         {role === "Client" ? (
           <>
@@ -165,21 +167,43 @@ function EditUser() {
           />
           <label htmlFor="city">City</label>
         </div>
-
-        <label>Image: </label>
-        <input
-          type="file"
-          name="image"
-          onChange={handleFileUpload}
-          disabled={isUploading}
-        />
-        {isUploading ? <h3>... uploading image</h3> : null}
-        {imageUrl ? (
-          <div>
-            <img src={imageUrl} alt="img" width={150} padding={0}/>
+        <div className="all">
+          <label>Image: </label>
+          <input
+            type="file"
+            name="image"
+            onChange={handleFileUpload}
+            disabled={isUploading}
+          />
+          {isUploading ? <h3>... uploading image</h3> : null}
+          {imageUrl ? (
+            <div>
+              <img src={imageUrl} alt="img" width={150} padding={0} />
+            </div>
+          ) : null}
+        </div>
+        <br />
+        {role === "Restaurant" ? (
+          <div className="all center ms-3 me-3">
+            <p className="ps-5 pe-5">
+              When you have found the right address, click on the map and a
+              marker will appear
+            </p>
+            <div className="mt-1 mb-3 ms-4 me-3">
+              <MapContainer center={center} zoom={13} scrollWheelZoom={false}>
+                <TileLayer
+                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                {/* invoke Marker Componentes here */}
+                <ClickMarker setClickedPosition={setClickedPosition} />
+                {clickedPosition !== null && (
+                  <Marker position={clickedPosition} />
+                )}
+              </MapContainer>
+            </div>
           </div>
         ) : null}
-        <br />
         <button type="submit" className="btn btn-danger mt-3 me-3 ms-3">
           Update
         </button>
@@ -192,27 +216,6 @@ function EditUser() {
         </button>
       </form>
       <br />
-      {role === "Restaurant" ? (
-        <div className="ms-3 me-3">
-          <p className="ps-5 pe-5">
-            When you have found the right address, click on the map and a marker
-            will appear
-          </p>
-          <div className="mt-1 mb-3 ms-4 me-3">
-            <MapContainer center={center} zoom={13} scrollWheelZoom={false}>
-              <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              />
-              {/* invoke Marker Componentes here */}
-              <ClickMarker setClickedPosition={setClickedPosition} />
-              {clickedPosition !== null && (
-                <Marker position={clickedPosition} />
-              )}
-            </MapContainer>
-          </div>
-        </div>
-      ) : null}
     </div>
   );
 }

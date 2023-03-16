@@ -16,9 +16,19 @@ const removeOrder = (id) => {
   return service.delete(`/order/${id}`)
 }
 
+const acceptOrder = (id) => {
+  return service.patch(`order/${id}`)
+}
+
+const rejectOrder = (id) => {
+  return service.patch(`order/${id}/reject`)
+}
+
 export {
   createOrder,
   getOrders,
   getOrdersRestaurant,
   removeOrder,
+  acceptOrder,
+  rejectOrder,
 }

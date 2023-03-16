@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { getOrders, getOrdersRestaurant, removeOrder } from "../../services/order.services";
+import {
+  getOrders,
+  getOrdersRestaurant,
+  acceptOrder,
+  removeOrder,
+  rejectOrder,
+} from "../../services/order.services";
 import { getPizzasByRestaurant } from "../../services/pizza.services";
 import { getUserData } from "../../services/user.services";
 
@@ -44,12 +50,30 @@ function User() {
 
   const cancelOrder = async (orderId) => {
     try {
-      await removeOrder(orderId)
-      navigate("/user")
+      await removeOrder(orderId);
+      navigate("/");
     } catch (error) {
-      navigate("/error")
+      navigate("/error");
     }
-  }
+  };
+
+  const acceptOneOrder = async (acceptOrderId) => {
+    try {
+      await acceptOrder(acceptOrderId);
+      navigate("/");
+    } catch (error) {
+      navigate("/error");
+    }
+  };
+
+  const rejectOneOrder = async (acceptOrderId) => {
+    try {
+      await rejectOrder(acceptOrderId);
+      navigate("/");
+    } catch (error) {
+      navigate("/error");
+    }
+  };
 
   return (
     <div>
@@ -60,14 +84,12 @@ function User() {
           {/* Restaurant view */}
           {userInfo.role === "Restaurant" ? (
             <div>
-              <h1>
-                {userInfo.role} {userInfo.username}
-              </h1>
-              <div>
+              <div className="all">
+                <h1>
+                  {userInfo.role} {userInfo.username}
+                </h1>
                 <img src={userInfo.imageUrl} alt="profile-img" width={100} />
                 {/* <p>Username: {userInfo.username}</p> */}
-              </div>
-              <div>
                 <p>
                   Address:{" "}
                   <b>
@@ -94,7 +116,7 @@ function User() {
                     Hide Pizza orders
                   </button>
                   {ordersRestaurant.length > 0 ? (
-                    <>
+                    <div className="all">
                       <hr />
                       {ordersRestaurant.map((elem) => {
                         return (
@@ -105,13 +127,29 @@ function User() {
                             <p>
                               Status: <b>{elem.pendingApproval}</b>
                             </p>
+                            <button
+                              type="button"
+                              className="btn btn-danger mt-0 me-3 ms-3"
+                              onClick={() => acceptOneOrder(elem._id)}
+                            >
+                              Accept
+                            </button>
+                            <button
+                              type="button"
+                              className="btn btn-danger mt-0 me-3 ms-3"
+                              onClick={() => rejectOneOrder(elem._id)}
+                            >
+                              Reject
+                            </button>
                             <hr />
                           </div>
                         );
                       })}
-                    </>
+                    </div>
                   ) : (
-                    <p>Not even one, start selling them!</p>
+                    <div className="all">
+                      <p>Not even one, start selling them!</p>
+                    </div>
                   )}
                 </div>
               ) : (
@@ -126,7 +164,6 @@ function User() {
                 </div>
               )}
               {/* Restaurant pizzas */}
-              <h3>My pizzas</h3>
               <Link to={"/user/pizza-create"}>
                 <button
                   type="button"
@@ -135,7 +172,8 @@ function User() {
                   Create new Pizza
                 </button>
               </Link>
-              <div>
+              <div className="all">
+                <h3>My pizzas</h3>
                 {pizzasInfo.map((elem) => {
                   return (
                     <div key={elem._id}>
@@ -153,15 +191,13 @@ function User() {
           ) : (
             <div>
               {/* User view */}
-              <h1>{userInfo.role} info</h1>
-              <div>
+              <div className="all">
+                <h1>{userInfo.role} info</h1>
                 <img src={userInfo.imageUrl} alt="profile-img" width={100} />
                 <p>
                   Username: <b>{userInfo.username}</b>
                 </p>
-              </div>
-              {/* User info */}
-              <div>
+                {/* User info */}
                 <p>
                   Name: <b>{userInfo.firstName}</b>
                 </p>
@@ -194,7 +230,7 @@ function User() {
                     Hide Pizza orders
                   </button>
                   {orders.length > 0 ? (
-                    <>
+                    <div className="all">
                       <hr />
                       {orders.map((elem) => {
                         return (
@@ -208,7 +244,7 @@ function User() {
                             <button
                               type="button"
                               className="btn btn-danger mt-0"
-                              onClick={()=>cancelOrder(elem._id)}
+                              onClick={() => cancelOrder(elem._id)}
                             >
                               Cancel
                             </button>
@@ -216,9 +252,11 @@ function User() {
                           </div>
                         );
                       })}
-                    </>
+                    </div>
                   ) : (
-                    <p>Not even one, get some PIZZA!</p>
+                    <div className="all">
+                      <p>Not even one, get some PIZZA!</p>
+                    </div>
                   )}
                 </div>
               ) : (
@@ -233,7 +271,7 @@ function User() {
                 </div>
               )}
               {/* favourite pizzas */}
-              <div>
+              <div className="all">
                 <h3>My favourite Pizzas</h3>
                 {favPizza.length > 0 ? (
                   <>

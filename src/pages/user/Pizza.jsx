@@ -57,7 +57,6 @@ function Pizza() {
 
   const handlePurchase = async () => {
     setShowPaymentIntent(true)
-    console.log(ownerId);
     try {
       await createOrder(id, {ownerId})
     } catch (error) {

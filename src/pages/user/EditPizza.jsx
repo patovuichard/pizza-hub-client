@@ -110,7 +110,9 @@ function EditPizza() {
 
   return (
     <div className="ms-0 me-0 pt-5 pb-5">
-      <h1>Edit pizza</h1>
+      <div className="all">
+        <h1>Edit pizza</h1>
+      </div>
       <form className="ms-3 me-3 pt-3 pb-3" onSubmit={handleSubmit}>
         <div className="form-floating mb-3">
           <input
@@ -232,19 +234,21 @@ function EditPizza() {
           />
           <label htmlFor="price">Price €</label>
         </div>
-        <label>Image: </label>
-        <input
-          type="file"
-          name="image"
-          onChange={handleFileUpload}
-          disabled={isUploading}
-        />
-        {isUploading ? <h3>... uploading image</h3> : null}
-        {imageUrl ? (
-          <div>
-            <img src={imageUrl} alt="img" width={200} />
-          </div>
-        ) : null}
+        <div className="all">
+          <label>Image: </label>
+          <input
+            type="file"
+            name="image"
+            onChange={handleFileUpload}
+            disabled={isUploading}
+          />
+          {isUploading ? <h3>... uploading image</h3> : null}
+          {imageUrl ? (
+            <div>
+              <img src={imageUrl} alt="img" width={200} />
+            </div>
+          ) : null}
+        </div>
         <br />
         <button className="btn btn-danger mt-3 mb-3 me-3 ms-3" type="submit">
           Update

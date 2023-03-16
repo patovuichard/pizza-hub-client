@@ -87,10 +87,10 @@ function Home() {
           selectedPizza={selectedPizza}
         />
       </div>
-      <div>
+      <div className="all">
         <h1>Pizzerias</h1>
       </div>
-      <div>
+      <div className="all">
         {isFetching ? (
           <img src="./pizza.svg" className="App-logo" alt="pizza" />
         ) : (
@@ -107,6 +107,7 @@ function Home() {
             ) : (
               <p>Sorry, no Pizzerias with that name... yet</p>
             )}
+          
             {showMap === true ? (
               <>
                 <button type="button" className="btn btn-danger mt-3 mb-3 me-3 ms-3" onClick={() => setShowMap(!showMap)}>Hide map</button>
@@ -150,10 +151,10 @@ function Home() {
         )}
       </div>
       <div>
-        <div>
+        <div className="all">
           <h1>Pizzas</h1>
         </div>
-        <div>
+        <div className="all">
           {isFetching2 ? (
             <img src="./pizza.svg" className="App-logo" alt="pizza" />
           ) : (
