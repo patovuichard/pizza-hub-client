@@ -73,11 +73,11 @@ function NewPizza() {
   };
 
   return (
-    <div className="ms-0 me-0 pt-5 pb-5">
+    <div className="mx-0 py-5">
       <div className="all">
         <h1 className="mb-3">Create a pizza</h1>
       </div>
-      <form className="ms-3 me-3 pt-3 pb-3" onSubmit={handleSubmit}>
+      <form className="mx-0 py-3" onSubmit={handleSubmit}>
         <div className="form-floating mb-3">
           <input
             className="form-control"
