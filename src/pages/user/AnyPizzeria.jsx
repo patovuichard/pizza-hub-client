@@ -36,19 +36,14 @@ function AnyPizzeria() {
         <img src="../pizza.svg" className="App-logo" alt="pizza" />
       ) : (
         <div>
-          <div className="card mb-3" style={{maxWidth: "250px"}}>
-            <div className="row g-0">
-              <div className="col-md-4">
-                <img src={userData.imageUrl} alt="userImage" width={250}/>
-              </div>
-              <div className="col-md-8">
-                <div className="card-body">
-                  <h1 className="card-title">{userData.username}</h1>
-                  <h4 className="card-text">Address:</h4>
-                  <h4 className="card-text">{userData.address}</h4>
-                  <h4 className="card-text">{userData.city}</h4>
-                </div>
-              </div>
+          <div className="card mt-5 mb-3" maxwidth={250} >
+            <img src={userData.imageUrl} alt="userImage"/>
+            <div className="card-body">
+              <h1 className="card-title">{userData.username}</h1>
+              <hr />
+              <p className="card-text">Address:</p>
+              <p className="card-text">{userData.address}</p>
+              <p className="card-text">{userData.city}</p>
             </div>
           </div>
           <div className="all">
@@ -56,6 +51,7 @@ function AnyPizzeria() {
             {pizzasInfo.data.map((elem) => {
               return (
                 <div key={elem._id}>
+                  <hr />
                   <Link to={`/pizza/${elem._id}`}>
                     <img src={elem.imageUrl} alt="pizza" width={100} />
                     <h3>{elem.pizzaName}</h3>

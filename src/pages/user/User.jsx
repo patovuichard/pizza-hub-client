@@ -88,7 +88,7 @@ function User() {
                 <h1 className="mb-3">
                   {userInfo.role} {userInfo.username}
                 </h1>
-                <img src={userInfo.imageUrl} alt="profile-img" width={100} />
+                <img src={userInfo.imageUrl} alt="profile-img" width={250} />
                 {/* <p>Username: {userInfo.username}</p> */}
                 <p>
                   Address:{" "}
@@ -178,7 +178,7 @@ function User() {
                   return (
                     <div key={elem._id}>
                       <Link to={`/user/pizza-edit/${elem._id}`}>
-                        <img src={elem.imageUrl} alt="pizza" width={100} />
+                        <img src={elem.imageUrl} alt="pizza" width={250} />
                         <h4>
                           <b>{elem.pizzaName}</b>
                         </h4>
