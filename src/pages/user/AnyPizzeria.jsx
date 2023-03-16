@@ -52,7 +52,7 @@ function AnyPizzeria() {
             </div>
           </div>
           <div className="all">
-            <h2>Pizzas</h2>
+            <h2 className="mb-3">Pizzas</h2>
             {pizzasInfo.data.map((elem) => {
               return (
                 <div key={elem._id}>

@@ -106,7 +106,7 @@ function EditUser() {
   return (
     <div className="ms-0 me-0 pt-5 pb-5">
       <div className="all">
-        <h1>Edit Info</h1>
+        <h1 className="mb-3">Edit Info</h1>
       </div>
       <form className="ms-3 me-3" onSubmit={handleSubmit}>
         {role === "Client" ? (

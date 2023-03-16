@@ -85,7 +85,7 @@ function User() {
           {userInfo.role === "Restaurant" ? (
             <div>
               <div className="all">
-                <h1>
+                <h1 className="mb-3">
                   {userInfo.role} {userInfo.username}
                 </h1>
                 <img src={userInfo.imageUrl} alt="profile-img" width={100} />
@@ -173,15 +173,15 @@ function User() {
                 </button>
               </Link>
               <div className="all">
-                <h3>My pizzas</h3>
+                <h3 className="mb-3">My pizzas</h3>
                 {pizzasInfo.map((elem) => {
                   return (
                     <div key={elem._id}>
                       <Link to={`/user/pizza-edit/${elem._id}`}>
                         <img src={elem.imageUrl} alt="pizza" width={100} />
-                        <p>
+                        <h4>
                           <b>{elem.pizzaName}</b>
-                        </p>
+                        </h4>
                       </Link>
                     </div>
                   );
@@ -192,7 +192,7 @@ function User() {
             <div>
               {/* User view */}
               <div className="all">
-                <h1>{userInfo.role} info</h1>
+                <h1 className="mb-3">{userInfo.role} info</h1>
                 <img src={userInfo.imageUrl} alt="profile-img" width={100} />
                 <p>
                   Username: <b>{userInfo.username}</b>
@@ -272,7 +272,7 @@ function User() {
               )}
               {/* favourite pizzas */}
               <div className="all">
-                <h3>My favourite Pizzas</h3>
+                <h3 className="mb-3">My favourite Pizzas</h3>
                 {favPizza.length > 0 ? (
                   <>
                     {favPizza.map((elem) => {
@@ -284,7 +284,7 @@ function User() {
                               alt="pizza-pict"
                               width={100}
                             />
-                            <h4>{elem.pizzaName}</h4>
+                            <h4><b>{elem.pizzaName}</b></h4>
                           </Link>
                         </div>
                       );

@@ -88,9 +88,7 @@ function Home() {
         />
       </div>
       <div className="all">
-        <h1>Pizzerias</h1>
-      </div>
-      <div className="all">
+        <h1 className="mb-3">Pizzerias</h1>
         {isFetching ? (
           <img src="./pizza.svg" className="App-logo" alt="pizza" />
         ) : (
@@ -152,9 +150,7 @@ function Home() {
       </div>
       <div>
         <div className="all">
-          <h1>Pizzas</h1>
-        </div>
-        <div className="all">
+          <h1 className="mb-3">Pizzas</h1>
           {isFetching2 ? (
             <img src="./pizza.svg" className="App-logo" alt="pizza" />
           ) : (

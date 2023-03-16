@@ -66,7 +66,7 @@ function Pizza() {
 
   return (
     <div className="ms-0 me-0 pt-5 pb-5">
-      <h1>Pizza details</h1>
+      <h1 className="all mb-3">Pizza details</h1>
       {isFetching ? (
         <img src="../pizza.svg" className="App-logo" alt="pizza" />
       ) : (
@@ -124,7 +124,7 @@ function Pizza() {
               {showPaymentIntent === false ? (
                 <button
                   type="button"
-                  className="btn btn-danger mt-3 mb-3 me-3 ms-3"
+                  className="btn btn-danger mt-3 mb-0 me-3 ms-3"
                   // onClick={() => setShowPaymentIntent(true)}
                   onClick={handlePurchase}
                 >
