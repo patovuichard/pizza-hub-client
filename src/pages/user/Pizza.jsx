@@ -4,6 +4,7 @@ import PaymentIntent from "../../components/PaymentIntent";
 import { addFavPizza, getOnePizza, removeFavPizza } from "../../services/pizza.services";
 import { useContext } from "react";
 import { AuthContext } from "../../context/auth.context";
+import { createOrder } from "../../services/order.services";
 
 function Pizza() {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ function Pizza() {
       setTimeout(() => {
         setSinglePizza(response.data);
         setIsFetching(false);
-      }, 1000);
+      }, 500);
     } catch (error) {
       navigate("/error");
     }
@@ -41,12 +42,22 @@ function Pizza() {
       navigate("/error");
     }
   };
+  
   const handleRmoveFavPizzas = async () => {
     try {
       await removeFavPizza(id)
       setPizzaAddedFavs(false)
     } catch (error) {
       navigate("/error");
+    }
+  }
+
+  const handlePurchase = async () => {
+    setShowPaymentIntent(true)
+    try {
+      await createOrder(id)
+    } catch (error) {
+      navigate("/error")
     }
   }
 
@@ -111,7 +122,8 @@ function Pizza() {
                 <button
                   type="button"
                   className="btn btn-danger mt-3 mb-3 me-3 ms-3"
-                  onClick={() => setShowPaymentIntent(true)}
+                  // onClick={() => setShowPaymentIntent(true)}
+                  onClick={handlePurchase}
                 >
                   Buy
                 </button>

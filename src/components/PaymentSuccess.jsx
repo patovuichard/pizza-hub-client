@@ -43,11 +43,9 @@ const PaymentSuccess = () => {
   }
 
   return (
-    <div>
-      <div>
+    <div className="ms-0 me-0 pt-5 pb-5">
         <h1>Thank you for your order!</h1>
         <Link to={"/"}>Go back to Home</Link>
-      </div>
     </div>
   );
 };
