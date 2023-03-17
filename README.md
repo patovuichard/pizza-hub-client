@@ -1,70 +1,292 @@
-# Getting Started with Create React App
+# PIZZA HUB
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
 
-## Available Scripts
+If you are a pizza lover like me, and are tired of browsing on the same apps with plenty of other stuff to get your favourite pizza, search no more and buy it in this Pizzerias dedicated app
 
-In the project directory, you can run:
+## User Stories
 
-### `npm start`
+-  **404:** As an anon/user I can see a 404 page if I try to reach a page that does not exist so that I know it's my fault
+-  **Signup:** As an anon I can sign up in the platform so that I can offer/buy pizzas (Pizzeria/Client roles)
+-  **Login:** As a user I can login to the platform so that I can buy/offer pizzas, edit my profile, see my orders and check my favourite pizzas
+-  **Logout:** As a user I can logout from the platform so no one else can use it
+-  **Add Pizzeria** As a user I can create a Pizzeria with my pizzas, so that I can share it with the community
+-  **List Pizzerias** As an anon/user I can see the Pizzerias so that I can choose where to make an order
+-  **Map of Pizzerias** As a useranon/user I can see where the Pizzerias are so that I can choose where to make an order
+-  **List Pizzas** As a anon/user I can see the Pizzas so that I can choose one to eat
+-  **Search Pizzerias/Pizzas** As a user I want to search Pizzerias/Pizzas by name so that I know if it´s already in the platform
+-  **List Pizzas within a Pizzeria** As a anon/user I can see the Pizzas of the choosen Pizzeria so that I can see the pizza offers
+-  **Pizza details** As a anon/user I can see the Pizza details of the choosen Pizza so that I can see the pizza ingredients
+-  **Add to favorites** As a client I want to add a pizza to favourites so that I can save the pizzas that I liked the most
+-  **See my favorites** As a client I want to see my favorite pizzas so that I can see the ones I liked the most
+-  **See-cancel/accept-reject my orders** As a Client/Pizzeria I want to see my pizza orders so that I can see the status of the order
+-  **Create and edit my pizzas** As a Pizzeria I want to create/edit my pizzas so that I can offer them to clients without any mistakes
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Backlog
 
-### `npm test`
+Pizzerias in Home page:
+- show them in carousel way
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Pizzas in Home page:
+- show them in carousel way
+  
+# Client
 
-### `npm run build`
+## Routes
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- / - Homepage
+- /signup - Signup form
+- /login - Login form
+- /user - Active user data, update and remove
+- /user/edit - Active user edit data
+- /user/pizza-create - Active user creates a pizza
+- /user/pizza-edit/:pizzaId - Active user creates a pizza
+- /user/:userId - Any Pizzeria data
+- /pizza/:pizzaId - All pizzas data
+- /payment-success - Payment success
+- 404
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Pages
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Home Page (public)
+- Sign in Page (anon only)
+- Log in Page (anon only)
+- Pizzeria with Pizzas List Page (public)
+- Pizza Details Page (public)
+- My Profile Page (user only)
+- My Profile Edit Data Page (user only)
+- My Profile Pizza Create (user only)
+- My Profile Pizza Edit (user only)
+- 404 Page (public)
 
-### `npm run eject`
+## Components
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- Search component
+  - Input: text to look for
+  - Output: filtrated list of Pizzerias/Pizzas
+- Navbar component
+- PaymentSuccess component
+  - Output: renders payment success card
+- PaymentIntent component
+- CheckoutForm component
+  - Input: text to complete form fields
+  - Output: success/error in data loading
+- ClickMarker component
+  - Output: creates a marker on map
+- IsPrivate component
+  - Output: checks if there is somebody logged in
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## IO
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Services
 
-## Learn More
+- Auth Services
+  - signupService(newuser)
+  - loginService(userCredentials)
+  - verifyService()
+- User Services
+  - getAllPizzerias()
+  - getUserData(data)
+  - getUserDataById(id)
+  - updateOneUser(updateUser)
+  - removeOneUser()
+- Upload Service
+  - uploadImageService(imageFile)
+- Pizza Services
+  - getAllPizzas()
+  - getPizzasByRestaurant(id)
+  - createNewPizza(newPizza)
+  - updateOnePizza(id, pizzaInfo)
+  - deleteOnePizza(id)
+  - getOnePizza(id)
+  - addFavPizza(id)
+  - removeFavPizza(id)
+- Payment Services
+  - createPaymentIntent(productId)
+  - updatePaymentIntentService(paymentIntentInfo)
+- Order Services
+  - createOrder(id, ownerId)
+  - getOrders()
+  - getOrdersRestaurant()
+  - removeOrder(id)
+  - acceptOrder(id)
+  - rejectOrder(id)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+# Server
 
-### Code Splitting
+## Models
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+User model
 
-### Analyzing the Bundle Size
+```
+username - String // required & unique
+password - String // required
+firstName - String
+lastName - String
+coordinates - [String]
+address - String
+city - String
+favoritePizzas - [ObjectID<Pizza>]
+imageUrl - String
+role - String // ["Client", "Restaurant"]
+timestamps - Boolean // true
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Pizza model
 
-### Making a Progressive Web App
+```
+pizzaName - String // required
+sauce - String // ["red", "white", "none"]
+ingredients - [String]
+imageUrl - String
+owner - ObjectID<User>
+price - Number
+timestamps - Boolean // true
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Order model
 
-### Advanced Configuration
+```
+pendingApproval - String // ["pending", "accepted", "rejected"]
+pizzaOrder - ObjectID<Pizza>
+orderOwner - ObjectID<User>
+pizzaOwner - ObjectID<User>
+timestamps - Boolean // true
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Payment model
 
-### Deployment
+```
+price - Number
+paymentIntentId - String
+clientSecret - String
+status - String // ["incomplete", "succeeded"]
+product - ObjectID<Pizza>
+buyer - ObjectID<User>
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## API Endpoints/Backend Routes
 
-### `npm run build` fails to minify
+- AUTH
+  - GET /auth/verify
+  - POST /auth/signup
+    - body:
+      - username
+      - password
+      - role
+  - POST /auth/login
+    - body:
+      - username
+      - password
+  - POST /auth/logout
+    - body: (empty)
+- USER
+  - GET /user
+    - payload:
+        - _id
+  - PATCH /user
+    - body:
+      - firstName
+      - lastName
+      - imageUrl
+      - address
+      - city
+      - coordinates
+  - GET /user/:id
+    - params:
+      - id
+  - GET /restaurant/all
+  - DELETE /user
+    - payload:
+      - _id
+- PIZZA
+  - GET /pizza
+  - POST /pizza
+    - body:
+      - pizzaName
+      - imageUrl
+      - sauce
+      - ingredients
+      - price
+    - payload
+      - _id
+    - payload:
+      - _id
+  - GET /pizza/:id
+    - params:
+      - id
+  - POST /pizza/:id
+    - params:
+      - id
+  - POST /pizza/:id/remove
+    - params:
+      - id
+  - DELETE /pizza/:id
+    - params:
+      - id
+  - PATCH /pizza/:id
+    - params:
+      - id
+    - body:
+      - pizzaName
+      - imageUrl
+      - sauce
+      - ingredients
+      - price
+    - payload:
+      - _id
+  - GET /pizza/owner/:id
+    - params:
+      - id
+- ORDER
+  - GET /order
+    - payload:
+      - _id
+  - GET /order/restaurant
+    - payload:
+      - _id
+  - POST /order/pizza/:id
+    - params:
+      - id
+    - body:
+      - ownerId
+  - DELETE /order/:id
+    - params:
+      - id
+  - PATCH /order/:id
+    - params:
+      - id
+  - PATCH /order/:id/reject
+    - params:
+      - id
+- PAYMENT
+  - POST /create-payment-intent
+    - body:
+      - id
+  - PATCH /update-payment-intent
+    - body:
+      - clientSecret
+      - paymentIntentId
+- UPLOAD
+  - POST /upload
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+## Links
+
+### Git
+
+The url to your repository and to your deployed project
+
+[Client repository Link](https://github.com/patovuichard/pizza-hub-client.git)
+[Server repository Link](https://github.com/patovuichard/pizza-hub-server.git)
+
+[Deploy Link](https://pizzas-hub.netlify.app/)
+
+### Slides
+
+The url to your presentation slides
+
+[Slides Link](https://docs.google.com/presentation/d/18B1IMJRnA2oSzY57uokJkxK3uYzyHm-fGD2AbsadYeQ/edit?usp=sharing)
